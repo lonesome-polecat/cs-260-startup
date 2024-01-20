@@ -11,5 +11,7 @@ I used Google Slides to create a mock layout of my website and, contrary to my i
 Also, I just learned in class that I need to call a third-party server/API.
 
 I may want to add customized settings for the user, like emailing a copy of the order receipt or a ready-for-pickup notification.
-Also perhaps choosing pickup times (which would be challenging but impressive) and use WebSocket to update taken and available times.
-Also, I need to brainstorm what third-party API would be beneficial.
+Also, perhaps choosing pickup times (which would be challenging but impressive) and use WebSocket to update taken and available times.
+
+For my API I will use Pexels and display a new image of Arizona everyday on the website.
+
