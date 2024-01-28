@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-size: 3vw;
+    animation: fly-in 1s ease-out;
+}
+
+.large {
+    display: block;
+}
+
+p {
+    font-size: 2em;
+    display: flex;
+    color: #666;
+}
+
+.course {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.courseName {
+    margin: 0.25em;
+    font-size: 3em;
+    font-weight: bold;
+    color: #111;
+}
+.courseNum {
+    margin: 0.25em;
+    font-size: 3em;
+    color: #da9512;
+}
+
+.small {
+    display: none;
+    font-size: 30vw;
+    color: #f3cf8c;
+}
+
+@keyframes fly-in {
+    0% {
+        transform: translateX(-200%);
+    }
+    80% {
+        transform: translateX(1%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@media (max-width: 500px) {
+    body {
+        background-color: rgb(23, 23, 23);
+    }
+    .large {
+        display: none;
+    }
+    .small {
+        display: block;
+    }
+}
