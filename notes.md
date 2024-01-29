@@ -19,9 +19,12 @@ For my API I will use **Pexels** and display a new image of Arizona everyday on 
 
 **Public IP address:** 54.144.126.138
 
-**Website URL:** www.arizonuts.click
+**Website URL:** https://arizonuts.click
 
 ### HTML
 
 I learned about how to use the `target` attribute in a link tag to specify how the link should open (i.e. in a new tab, in the current tab, etc.)
+
+I learned that injecting different html into an html page (say like new content for each tab) is very difficult and requires a lot of JavaScript,
+so we will just wait on that until React can make that easy for us.
 

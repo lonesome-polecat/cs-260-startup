@@ -20,22 +20,6 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'src' });
 });
 
-app.get('/home', (_req, res) => {
-  res.sendFile('home.html');
-});
-
-app.get('/menu', (_req, res) => {
-  res.sendFile('menu.html');
-});
-
-app.get('/orders', (_req, res) => {
-  res.sendFile('orders.html');
-});
-
-app.get('/contact', (_req, res) => {
-  res.sendFile('contact.html');
-});
-
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
