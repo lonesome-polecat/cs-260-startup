@@ -28,3 +28,4 @@ I learned about how to use the `target` attribute in a link tag to specify how t
 I learned that injecting different html into an html page (say like new content for each tab) is very difficult and requires a lot of JavaScript,
 so we will just wait on that until React can make that easy for us.
 
+I actually learned this from CS 235, but functions are called methods when they are members of a class
