@@ -29,3 +29,5 @@ I learned that injecting different html into an html page (say like new content 
 so we will just wait on that until React can make that easy for us.
 
 I actually learned this from CS 235, but functions are called methods when they are members of a class
+
+Web Service (API): Disify does email address validation which seems pretty useful. Might incorporate that.
