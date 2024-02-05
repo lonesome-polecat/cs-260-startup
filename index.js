@@ -8,7 +8,7 @@ const port = process.argv.length > 2 ? process.argv[2] : 3000;
 const serviceName = process.argv.length > 3 ? process.argv[3] : 'website';
 
 // Serve up the static content
-app.use(express.static('src'));
+app.use(express.static('public'));
 
 // Provide the version of the application
 app.get('/config', (_req, res) => {
@@ -17,7 +17,7 @@ app.get('/config', (_req, res) => {
 
 // Return the homepage if the path is unknown
 app.use((_req, res) => {
-  res.sendFile('index.html', { root: 'src' });
+  res.sendFile('index.html', { root: 'public' });
 });
 
 app.listen(port, () => {
