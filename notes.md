@@ -31,3 +31,31 @@ so we will just wait on that until React can make that easy for us.
 I actually learned this from CS 235, but functions are called methods when they are members of a class
 
 Web Service (API): Disify does email address validation which seems pretty useful. Might incorporate that.
+
+
+### CSS
+
+Within stylesheet, @tags can make it more dynamic. Use @font-face to bring in fonts to use, @import for external css (also used for fonts)
+
+Animation example: 
+p {
+  animation: <name-of-animation> <duration #s>;
+}
+
+@keyframes <name-of-animation> {
+  from {  // start
+    font-size: 0vh;
+  }
+  95% {
+    font-size: 20vh;
+  }
+  to {  // end
+    font-size: 10vh;
+  }
+}
+
+### TODO
+
+- Add login to index.html
+- Add home.html as home page after login, change links to home to home.html
+- 
