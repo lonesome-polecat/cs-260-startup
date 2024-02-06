@@ -17,7 +17,7 @@ app.get('/config', (_req, res) => {
 
 // Return the homepage if the path is unknown
 app.use((_req, res) => {
-  res.sendFile('index.html', { root: 'public' });
+  res.sendFile('./public/index.html', { root: './' });
 });
 
 app.listen(port, () => {
