@@ -52,3 +52,16 @@ Our website includes the following features:
 ![Contact Page](public/img/arizonuts_contact.jpg)
 
 
+## Current Progress
+
+### HTML
+
+I recently added the following features to the page
+- "Welcome" index page with **Login** placeholder and link to **GitHub repo**
+- "Menu" page with images of donuts and placeholders for order counts (**WebSocket data**), button placeholder for ordering
+- "Orders" page which displays a table as a **Database data placeholder**, showing pending and past orders
+- "Contact" page with **third-party app data** placeholder (loads pictures of Arizona) and another link to GitHub repo
+- Each page contains a **navigation bar** with links to each page, above which the website title and username are displayed
+
+
+

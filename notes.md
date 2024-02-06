@@ -54,8 +54,6 @@ p {
   }
 }
 
-### TODO
+### HTML deliverable
 
-- Add login to index.html
-- Add home.html as home page after login, change links to home to home.html
-- 
+Note: I have no idea what to use the footer for. The instructions say to use it, but I don't have any uses for it yet.
