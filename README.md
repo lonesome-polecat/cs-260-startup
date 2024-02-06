@@ -24,31 +24,31 @@ Our website includes the following features:
 
 ### Login
 
-![Login Page](img/arizonuts_login.jpg)
+![Login Page](public/img/arizonuts_login.jpg)
 
 
 ### Home
 
-![Home Page design image](img/arizonuts_home.jpg)
+![Home Page design image](public/img/arizonuts_home.jpg)
 
 
 ### Menu
 
-![Menu Page](img/arizonuts_menu.jpg)
+![Menu Page](public/img/arizonuts_menu.jpg)
 
 
 ### Order Confirmation Dialog
 
-![Order Confirmation dialog window](img/arizonuts_order_dialog.jpg)
+![Order Confirmation dialog window](public/img/arizonuts_order_dialog.jpg)
 
 
 ### Past Orders
 
-![Orders page](img/arizonuts_orders.jpg)
+![Orders page](public/img/arizonuts_orders.jpg)
 
 
 ### Contact Page
 
-![Contact Page](img/arizonuts_contact.jpg)
+![Contact Page](public/img/arizonuts_contact.jpg)
 
 
