@@ -57,3 +57,7 @@ p {
 ### HTML deliverable
 
 Note: I have no idea what to use the footer for. The instructions say to use it, but I don't have any uses for it yet.
+
+### CSS deliverable
+
+Boostrapping looks very handy. Remember to download their stylesheets in case their servers ever go down.
