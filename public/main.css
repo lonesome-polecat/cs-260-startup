@@ -7,6 +7,25 @@ body {
     padding: 20px;
     background-color: rgb(255, 242, 204);
 }
+nav div {
+    width: 100%;
+    display: block;
+    background-color: #fadd88;
+}
+ul.navbar {
+    list-style-type: none;
+    overflow: hidden;
+    padding: 10px;
+}
+ul.navbar li {
+    float: left;
+    box-sizing: inherit;
+    padding: 0px 10px 0px 10px;
+}
+li a {
+    text-decoration: none;
+    color: #595959;
+}
 main {
     display: flex;
     flex-direction: column;
