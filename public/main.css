@@ -7,6 +7,19 @@ body {
     padding: 20px;
     background-color: rgb(255, 242, 204);
 }
+.head {
+    display: flex;
+    justify-content: space-between;
+}
+.pageTitle {
+    color: #595959;
+    font-size: 60px;
+    font-family: "Merriweather Sans";
+    font-weight: bold;
+}
+.displayUser {
+    font-size: 14px;
+}
 nav div {
     width: 100%;
     display: block;
@@ -52,15 +65,6 @@ table th, td {
 
 .large {
     display: block;
-}
-.pageTitle {
-    color: #595959;
-    font-size: 60px;
-    font-family: "Merriweather Sans";
-    font-weight: bold;
-}
-.displayUser {
-    font-size: 14px;
 }
 div.login {
     display: block;
