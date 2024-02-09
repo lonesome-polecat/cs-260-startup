@@ -45,7 +45,18 @@ main {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    animation: fly-in 1s ease-out;
+}
+div.login {
+    background-color: #fce5cdff;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+form.login input {
+    margin: 10px 15px 10px 15px;
+    padding: 5px;
+    border: solid 0px #ffffff;
+    font-size: 14px;
 }
 footer {
     background-color: grey;
@@ -66,11 +77,6 @@ table th, td {
 .large {
     display: block;
 }
-div.login {
-    display: block;
-    padding: 20px;
-}
-
 p {
     font-size: 2em;
     display: flex;
@@ -101,19 +107,6 @@ p {
     font-size: 30vw;
     color: #f3cf8c;
 }
-
-@keyframes fly-in {
-    0% {
-        transform: translateX(-200%);
-    }
-    80% {
-        transform: translateX(1%);
-    }
-    100% {
-        transform: translateX(0%);
-    }
-}
-
 @media (max-width: 500px) {
     body {
         background-color: rgb(23, 23, 23);
