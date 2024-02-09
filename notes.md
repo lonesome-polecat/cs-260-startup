@@ -61,3 +61,8 @@ Note: I have no idea what to use the footer for. The instructions say to use it,
 ### CSS deliverable
 
 Boostrapping looks very handy. Remember to download their stylesheets in case their servers ever go down.
+
+
+### Javascript deliverable
+
+You can console.log() with CSS applied as well. Never knew that. Also not sure where that would be handy.
