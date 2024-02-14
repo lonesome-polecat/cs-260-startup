@@ -1,0 +1,11 @@
+table.orders {
+     border: solid 1px grey;
+ }
+table th, td {
+    padding: 10px;
+    text-align: center;
+}
+tr.headers, tr.headers th {
+    background-color: lavender;
+    border-color: lavender;
+}

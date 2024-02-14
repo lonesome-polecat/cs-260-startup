@@ -65,13 +65,7 @@ button.order {
     color: white;
     padding: 10px;
 }
-table.orders {
-    border: solid 1px grey;
-}
-table th, td {
-    padding: 10px;
-    text-align: center;
-}
+
 
 .large {
     display: block;
