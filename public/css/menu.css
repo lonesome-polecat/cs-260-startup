@@ -1,3 +1,7 @@
+@font-face {
+    font-family: Pacifico;
+    src: url("../fonts/Pacifico-Regular.ttf")
+}
 main.menu {
     display: flex;
     flex-direction: column;
@@ -6,13 +10,21 @@ main.menu {
 }
 div.menu {
     padding: 10px;
+    align-content: center;
+    display: inline-block;
+}
+div.order {
+    align-content: center;
 }
 .menu-option {
     display: inline-block;
     padding: 10px;
-    border: solid 2px darkgreen;
+    border: solid 0px darkgreen;
+    align-content: center;
 }
 .menu-option-title {
     font-family: "Pacifico";
     font-size: 20px;
+    text-align: center;
+    padding: 10px;
 }
