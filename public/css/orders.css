@@ -1,11 +1,11 @@
 table.orders {
-     border: solid 1px grey;
+     border: solid 2px #ead1dcff;
  }
 table th, td {
     padding: 10px;
     text-align: center;
 }
 tr.headers, tr.headers th {
-    background-color: lavender;
-    border-color: lavender;
+    background-color: #ead1dcff;
+    border-color: #ead1dcff;
 }
