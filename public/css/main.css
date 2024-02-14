@@ -1,10 +1,18 @@
+@font-face {
+    font-family: Merriweather Sans;
+    src: url("../fonts/MerriweatherSans-Regular.ttf")
+}
+@font-face {
+    font-family: Merriweather;
+    src: url("../fonts/Merriweather-Regular.ttf")
+}
 * {
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: Merriweather Sans;
     margin: 0;
 }
 body {
-    padding: 20px;
+    padding: 20px 0px 20px 0px;
     background-color: rgb(255, 242, 204);
 }
 .head {
@@ -14,11 +22,13 @@ body {
 .pageTitle {
     color: #595959;
     font-size: 60px;
-    font-family: "Merriweather Sans";
+    font-family: Merriweather;
     font-weight: bold;
+    padding-left: 20px;
 }
 .displayUser {
     font-size: 14px;
+    padding-right: 20px;
 }
 nav div {
     width: 100%;
@@ -64,6 +74,11 @@ button.order {
     background-color: pink;
     color: white;
     padding: 10px;
+    border: 0;
+}
+button:hover {
+    background-color: hotpink;
+    cursor: pointer;
 }
 
 
