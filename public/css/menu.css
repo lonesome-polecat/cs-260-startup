@@ -12,3 +12,7 @@ div.menu {
     padding: 10px;
     border: solid 2px darkgreen;
 }
+.menu-option-title {
+    font-family: "Pacifico";
+    font-size: 20px;
+}
