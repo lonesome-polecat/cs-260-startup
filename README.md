@@ -63,5 +63,14 @@ I recently added the following features to the page
 - "Contact" page with **third-party app data** placeholder (loads pictures of Arizona) and another link to GitHub repo
 - Each page contains a **navigation bar** with links to each page, above which the website title and username are displayed
 
+### CSS
+
+I recently added the following stylistic features to the page
+- All text in font Merriweather Sans (Except page title which is in Merriweather)
+- Background and fonts colors
+- Spacing in all areas
+- button:hover animation
+- Footers
+
 
 
