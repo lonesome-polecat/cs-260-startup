@@ -43,11 +43,12 @@ ul.navbar {
 ul.navbar li {
     float: left;
     box-sizing: inherit;
-    padding: 0px 10px 0px 10px;
+    padding: 0px 20px 0px 20px;
 }
 li a {
     text-decoration: none;
     color: #595959;
+    font-size: 18px;
 }
 main {
     display: flex;
@@ -116,9 +117,6 @@ p {
     color: #f3cf8c;
 }
 @media (max-width: 500px) {
-    body {
-        background-color: rgb(23, 23, 23);
-    }
     .large {
         display: none;
     }
