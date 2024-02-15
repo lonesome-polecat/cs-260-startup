@@ -61,6 +61,7 @@ Note: I have no idea what to use the footer for. The instructions say to use it,
 ### CSS deliverable
 
 Boostrapping looks very handy. Remember to download their stylesheets in case their servers ever go down.
+I think on the `contact` page I want to add a carousel with 5 or more pictures pulled in
 
 
 ### Javascript deliverable
