@@ -12,7 +12,7 @@
     margin: 0;
 }
 body {
-    padding: 20px 0px 20px 0px;
+    padding: 20px 0px 0px 0px;
     background-color: rgb(255, 242, 204);
 }
 .head {
@@ -115,6 +115,13 @@ p {
     display: none;
     font-size: 30vw;
     color: #f3cf8c;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    min-height: 5vh;
+    width: 100%;
+    background-color: #fadd88;
 }
 @media (max-width: 500px) {
     .large {
