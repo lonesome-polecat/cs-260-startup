@@ -67,3 +67,20 @@ I think on the `contact` page I want to add a carousel with 5 or more pictures p
 ### Javascript deliverable
 
 You can console.log() with CSS applied as well. Never knew that. Also not sure where that would be handy.
+Ternary operator ? <true result : <false result>
+Optional chain: object.function?.() Evaluates is function is nullish, if so stops operation
+Combine optional chain with fallback method: object.function?.() || fallback()
+Destructuring arrays: [x] = a == x = a[0] || [x, y] = a == x, y = a[0], a[1]
+[x, y, z = 100] where if no a[2] z defaults to 100
+[x, , y, ...z] where we skip a[1] and then z = remainder or a[3:]
+
+Apply the 'use strict' header to the js file and it will require you to fix common mistakes (like unstrict comparison ==)
+DOM methods with .innerHTML is nice but frowned upon because people can inject code into it and it will run
+Instead use .createElement then .textElement = text <= this won't be run
+
+Apply the 'use strict' header to the js file and it will require you to fix common mistakes (like unstrict comparison ==
+
+DOM methods with .innerHTML is nice but frowned upon because people can inject code into it and it will run
+Instead use .createElement then .textElement = text <= this won't be run
+localStorage (use until we have database) it is a small space on the browser
+localStorage.setItem & localStorage.getItem
