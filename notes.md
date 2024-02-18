@@ -84,3 +84,14 @@ DOM methods with .innerHTML is nice but frowned upon because people can inject c
 Instead use .createElement then .textElement = text <= this won't be run
 localStorage (use until we have database) it is a small space on the browser
 localStorage.setItem & localStorage.getItem
+
+### Revisions
+
+After brainstorming with Lexy I came up with a number of things I want to add/change...
+
+- A separate Login page with a login button in the top right corner
+- Home page that describes our business a bit more
+- Links to instagram account
+- Logo at the top
+- More sectional pages (like Waffle love)
+- A carousel of pictures

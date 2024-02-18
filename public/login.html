@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arizonuts</title>
+    <link rel="icon" type="image/x-icon" href="img/donut32.gif">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/login.css">
+  </head>
+
+  <body>
+  <header>
+    <div class="head">
+      <div>
+        <h2 class="pageTitle">Arizonuts</h2>
+      </div>
+      <div>
+        <p class="displayUser">User Name</p>
+      </div>
+    </div>
+    <nav>
+      <div>
+        <ul class="navbar">
+          <li>
+            <a href="./index.html">Home</a>
+          </li>
+          <li>
+            <a href="./menu.html">Menu</a>
+          </li>
+          <li>
+            <a href="./orders.html">Orders</a>
+          </li>
+          <li>
+            <a href="./contact.html">Contact</a>
+          </li>
+        </uL>
+      </div>
+    </nav>
+  </header>
+    <main>
+      <br>
+      <p>Welcome to Arizonuts! Begin your tasty adventure...</p><br>
+      <br>
+      <div class="login">
+      <h3 style="padding: 20px;">Login</h3><br>
+      <form class="login">
+        <input type="text" value="username"><br>
+        <input type="password" value="password" /><br>
+        <input type="submit" value="Sign In"/><br>
+      </form>
+      </div>
+      <br>
+      <a href="https://github.com/lonesome-polecat/startup" target="_blank"><em>GitHub Repo</em></a>
+      <br><br>
+    </main>
+  <footer>
+
+  </footer>
+
+    <script>
+      fetch('/config').then((r) => {
+        if (r.ok) {
+          r.json().then((config) => {
+            const serviceNameEl = document.querySelector('#serviceName');
+            serviceNameEl.textContent = config.name;
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
