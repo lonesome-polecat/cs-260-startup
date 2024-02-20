@@ -95,3 +95,4 @@ After brainstorming with Lexy I came up with a number of things I want to add/ch
 - Logo at the top
 - More sectional pages (like Waffle love)
 - A carousel of pictures
+- Make login card bigger
