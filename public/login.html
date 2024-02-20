@@ -46,9 +46,10 @@
       <div class="login">
       <h3 style="padding: 20px;">Login</h3><br>
       <form class="login">
-        <input type="text" value="username"><br>
+        <input type="text" id="username" value="username"><br>
         <input type="password" value="password" /><br>
-        <input type="submit" value="Sign In"/><br>
+<!--        <input type="submit" value="Sign In" onclick="submitLogin()"/><br>-->
+        <button onclick="submitLogin()"/>Sign In<br>
       </form>
       </div>
       <br>
@@ -69,5 +70,6 @@
         }
       });
     </script>
+  <script src="js/login.js"></script>
   </body>
 </html>
