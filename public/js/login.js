@@ -4,13 +4,10 @@
 Takes login information and checks it for correctness, then calls updateUserName()
  */
 function submitLogin() {
-    // let form = document.getElementsByTagName("form");
-    // document.getElementById("username").addEventListener("onclick", (event) => {
-    //     event.preventDefault();
-    // })
     let username = document.getElementById("username").value;
-    console.log(`username = ${username}`)
-    updateUserName(username);
+    window.localStorage.setItem("username", username);
+    window.location.href = "../index.html";
+    updateUserName();
 }
 
 /*
@@ -18,11 +15,15 @@ function submitLogin() {
 @Returns: void
 Replaces the login button in top-right corner with username
  */
-function updateUserName(username) {
-    console.log(username);
+function updateUserName() {
+    let username = window.localStorage.getItem("username");
     let oldUsername = document.getElementsByClassName("displayUser")[0];
-    oldUsername.innerHTML = username;
-    // let newUsername = document.createElement("p", {class: "displayUser"});
-    // newUsername.innerText = username;
-    // oldUsername.replaceWith(newUsername);
+    if (username === null) {
+        let login = document.createElement("a");
+        login.href = "login.html";
+        login.innerHTML = "Login";
+        oldUsername.appendChild(login);
+    } else {
+        oldUsername.innerHTML = username;
+    }
 }

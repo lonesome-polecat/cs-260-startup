@@ -16,7 +16,7 @@
         <h2 class="pageTitle">Arizonuts</h2>
       </div>
       <div>
-        <p class="displayUser"><a href="login.html">Login</a></p>
+        <p class="displayUser"></p>
       </div>
     </div>
     <nav>
@@ -52,6 +52,7 @@
 
   </footer>
 
+  <script src="js/login.js"></script>
     <script>
       fetch('/config').then((r) => {
         if (r.ok) {
@@ -61,6 +62,9 @@
           });
         }
       });
+      window.onload = (event) => {
+        updateUserName();
+      }
     </script>
   </body>
 </html>
