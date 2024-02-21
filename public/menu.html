@@ -17,7 +17,7 @@
       <h2 class="pageTitle">Arizonuts</h2>
     </div>
     <div>
-      <p class="displayUser">User Name</p>
+      <p class="displayUser"></p>
     </div>
   </div>
   <nav>
@@ -62,5 +62,19 @@
 <footer style="position: relative;">
 
 </footer>
+<script src="js/login.js"></script>
+<script>
+  fetch('/config').then((r) => {
+    if (r.ok) {
+      r.json().then((config) => {
+        const serviceNameEl = document.querySelector('#serviceName');
+        serviceNameEl.textContent = config.name;
+      });
+    }
+  });
+  window.onload = (event) => {
+    updateUserName();
+  }
+</script>
   </body>
 </html>
