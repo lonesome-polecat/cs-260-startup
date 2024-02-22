@@ -38,36 +38,18 @@
     </div>
   </nav>
 </header>
-<main>
-  <br>
-  <p>Check out your orders...</p>
-  <br>
-  <table class="orders">
-    <tr class="headers">
-      <th>Order No.</th>
-      <th>Name on Order</th>
-      <th>Pickup Time</th>
-      <th>Details</th>
-      <th>Total Cost</th>
-      <th>&nbsp</th>
-    </tr>
-    <tr>
-      <td>#12345</td>
-      <td>Helaman Bennion</td>
-      <td>12:30 Wed 01/17/24</td>
-      <td>2 rasp 5 key</td>
-      <td>$28</td>
-      <td><button class="order">Cancel Order</button></td>
-    </tr>
-  </table>
+<main include-html="orders_data.html">
+
 </main>
 <footer>
 
 </footer>
 <script src="js/login.js"></script>
+<script src="js/orders.js"></script>
 <script>
   window.onload = (event) => {
     updateUserName();
+    checkLogin();
   }
 </script>
 </body>
