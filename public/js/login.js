@@ -11,6 +11,18 @@ function submitLogin() {
 }
 
 /*
+@Params:
+@Returns:
+Sets the username in localStorage to null or effectively "logs out" the user
+ */
+function logout() {
+    window.localStorage.removeItem("username");
+    // We leave everything else in localStorage for now so we don't lose our order information
+    updateUserName();
+    window.location.reload();
+}
+
+/*
 @Params: string username
 @Returns: void
 Replaces the login button in top-right corner with username
@@ -24,6 +36,15 @@ function updateUserName() {
         login.innerHTML = "Login";
         oldUsername.appendChild(login);
     } else {
-        oldUsername.innerHTML = username;
+        let nametag = document.createElement("p");
+        nametag.className = "displayUser";
+        nametag.innerText = username;
+        oldUsername.id = "user-dropdown";
+        oldUsername.appendChild(nametag);
+        // oldUsername.innerText = `<p class='displayUser'>${username}</p>`;
+        let dropdown = document.createElement("div");
+        dropdown.id = "user-dropdown-content";
+        dropdown.innerHTML = "<button id='logout' onclick='logout()'>Log out</button>";
+        oldUsername.appendChild(dropdown);
     }
 }
