@@ -28,3 +28,11 @@ div.order {
     text-align: center;
     padding: 10px;
 }
+#make-order {
+    padding: 10px;
+}
+#order-dialog {
+    padding: 20px;
+    background-color: #fadd88;
+    margin: 100px;
+}

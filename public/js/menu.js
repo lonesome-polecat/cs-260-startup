@@ -3,8 +3,15 @@
 @Returns: void
 Pulls up order card
  */
-function makeOrder() {
 
+const orderDialog = document.getElementById("order-dialog");
+
+function makeOrder() {
+    orderDialog.showModal();
+}
+
+function closeDialog() {
+    orderDialog.close();
 }
 
 /*
