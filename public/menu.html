@@ -40,6 +40,12 @@
 </header>
 <main class="menu">
     <br>
+  <!-- Begin order dialog section -->
+  <dialog id="order-dialog">
+    <p>This is my dialog</p>
+    <button onclick="closeDialog()">Close</button>
+  </dialog>
+  <!-- End order dialog section -->
     <p style="text-align: center;">Our weekly pics! <br><br>You can see which donuts are most popular by the order count below, updated in real-time!</p>
   <div class="menu">
     <div class="menu-option">
@@ -54,7 +60,7 @@
     </div>
   </div>
   <div>
-    <button class="order">Order Now</button>
+    <button id="make-order" onclick="makeOrder()">Order Now</button>
   </div>
   <br><br>
 </main>
@@ -62,6 +68,7 @@
 
 </footer>
 <script src="js/login.js"></script>
+<script src="js/menu.js"></script>
 <script>
   fetch('/config').then((r) => {
     if (r.ok) {

@@ -96,3 +96,13 @@ After brainstorming with Lexy I came up with a number of things I want to add/ch
 - More sectional pages (like Waffle love)
 - A carousel of pictures
 - Make login card bigger
+- Make footer responsive
+
+### Midterm Review
+
+- 'A' record is an address record: Connects hostname to ip address
+- 'CNAME' is essentially an alias: You tell it to reroute a hostname to another hostname  (not redirect, just alias)
+- Study Regex syntax
+- Web API and promises? Is it multithreading to call a promise (wtih timeout) without awaiting it?
+- Promises and async await (same thing, different syntax): Promise.then() <- only that which is in the .then() waits for the promise to resolve
+- Await is the same, it just takes all the code after it and sticks it in a .then() block
