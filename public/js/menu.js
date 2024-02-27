@@ -8,9 +8,11 @@ const orderDialog = document.getElementById("order-dialog");
 
 function makeOrder() {
     orderDialog.showModal();
+    orderDialog.style.display = "flex";
 }
 
 function closeDialog() {
+    orderDialog.style.display = "none";
     orderDialog.close();
 }
 
