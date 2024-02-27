@@ -32,7 +32,23 @@ div.order {
     padding: 10px;
 }
 #order-dialog {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
     padding: 20px;
-    background-color: #fadd88;
-    margin: 100px;
+    background-color: #ffeeee;
+    border: 0;
+    border-radius: 10px;
+}
+.order-dialog-option-container {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.amount-input {
+    display: block;
+    max-width: 3em;
+    max-height: 2.5em;
 }
