@@ -58,18 +58,18 @@
     </div>
   </dialog>
   <!-- End order dialog section -->
-    <p style="text-align: center;">Our weekly pics! <br><br>You can see which donuts are most popular by the order count below, updated in real-time!</p>
-  <div class="menu">
-    <div class="menu-option">
-      <h3 class="menu-option-title" style="color: #a64d79">Raspberry Cheesecake</h3>
-      <img src="img/rasp_arizonut.jpg" alt="raspberry cheesecake" width="300px" height="300px"/>
-      <p>Order Count: <em id="rasp-count">0</em></p>
-    </div>
-    <div class="menu-option">
-      <h3 class="menu-option-title" style="color: #93c47d">Key Lime Pie</h3>
-      <img src="img/keylime.jpg" alt="key lime" width="300px" height="300px"/>
-      <p>Order Count: <em id="keylime-count">0</em></p>
-    </div>
+    <p style="text-align: center;">Our weekly pics! <br><br>You can see which arizonuts are most popular by the order count below, updated in real-time!</p>
+  <div id="menu-container">
+<!--    <div class="menu-option">-->
+<!--      <h3 class="menu-option-title" style="color: #a64d79">Raspberry Cheesecake</h3>-->
+<!--      <img class="menu-option-img" src="img/rasp_arizonut.jpg" alt="raspberry cheesecake"/>-->
+<!--      <p>Order Count: <em id="rasp-count">0</em></p>-->
+<!--    </div>-->
+<!--    <div class="menu-option">-->
+<!--      <h3 class="menu-option-title" style="color: #93c47d">Key Lime Pie</h3>-->
+<!--      <img class="menu-option-img" src="img/keylime.jpg" alt="key lime"/>-->
+<!--      <p>Order Count: <em id="keylime-count">0</em></p>-->
+<!--    </div>-->
   </div>
   <div>
     <button id="make-order" onclick="makeOrder()">Order Now</button>
@@ -84,7 +84,8 @@
 <script>
   window.onload = (event) => {
     updateUserName();
-    updateOrderCount({keylime: 0, rasp: 0})
+    // updateOrderCount({keylime: 0, rasp: 0})
+    loadMenu();
   }
 </script>
   </body>

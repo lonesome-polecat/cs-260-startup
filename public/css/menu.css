@@ -8,7 +8,7 @@ main.menu {
     align-items: center;
     justify-content: center;
 }
-div.menu {
+#menu-container {
     padding: 10px;
     align-content: center;
     display: inline-block;
@@ -27,6 +27,13 @@ div.order {
     font-size: 24px;
     text-align: center;
     padding: 10px;
+}
+.menu-option-img {
+    width: 300px;
+    height: 300px;
+}
+.menu-option-count {
+
 }
 #make-order {
     padding: 10px;
