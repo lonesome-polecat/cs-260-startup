@@ -22,8 +22,11 @@ function closeDialog() {
 Processes and uploads order to database, updates order count
  */
 function submitOrder() {
-
-    updateOrderCount();
+    let order = {};
+    order.keylime = document.getElementById("keylime-order-amt").value
+    order.rasp = document.getElementById("rasp-order-amt").value
+    updateOrderCount(order);
+    closeDialog();
 }
 
 /*
@@ -31,6 +34,24 @@ function submitOrder() {
 @Returns: void
 Updates the order count for each donut
  */
-function updateOrderCount() {
+function updateOrderCount(order) {
+    let curr_counts = {};
+    curr_counts.keylime = window.localStorage.getItem("keylime-count");
+    if (curr_counts.keylime === null) {
+        window.localStorage.setItem("keylime-count", "0");
+        curr_counts.keylime = 0;
+    }
+    curr_counts.rasp = window.localStorage.getItem("rasp-count");
+    if (curr_counts.rasp === null) {
+        window.localStorage.setItem("rasp-count", "0");
+        curr_counts.rasp = 0;
+    }
+    curr_counts.keylime += order.keylime;
+    curr_counts.rasp += order.rasp;
+
+    document.getElementById("keylime-count").innerHTML = curr_counts.keylime;
+    document.getElementById("rasp-count").innerHTML = curr_counts.rasp;
+    window.localStorage.setItem("keylime-count", curr_counts.keylime);
+    window.localStorage.setItem("rasp-count", curr_counts.rasp);
 
 }
