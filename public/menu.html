@@ -45,16 +45,16 @@
     <p>Complete your order</p>
     <div class="order-dialog-option-container">
       <h3 class="menu-option-title" style="color: #93c47d">Key Lime Pie</h3>
-      <input class="amount-input" type="number" value="0" min="0" step="1" />
+      <input id="keylime-order-amt" class="amount-input" type="number" value="0" min="0" step="1" />
     </div>
     <div class="order-dialog-option-container">
       <h3 class="menu-option-title" style="color: #a64d79">Raspberry Cheesecake</h3>
-      <input class="amount-input" type="number" value="0" min="0" step="1" />
+      <input id="rasp-order-amt" class="amount-input" type="number" value="0" min="0" step="1" />
     </div>
     <div>
       <p>Total cost for deliciousness: $12</p>
       <br>
-      <button onclick="closeDialog()">Confirm</button>
+      <button onclick="submitOrder()">Confirm</button>
     </div>
   </dialog>
   <!-- End order dialog section -->
@@ -63,12 +63,12 @@
     <div class="menu-option">
       <h3 class="menu-option-title" style="color: #a64d79">Raspberry Cheesecake</h3>
       <img src="img/rasp_arizonut.jpg" alt="raspberry cheesecake" width="300px" height="300px"/>
-      <p>Order Count: 2</p>
+      <p>Order Count: <em id="rasp-count">0</em></p>
     </div>
     <div class="menu-option">
       <h3 class="menu-option-title" style="color: #93c47d">Key Lime Pie</h3>
       <img src="img/keylime.jpg" alt="key lime" width="300px" height="300px"/>
-      <p>Order Count: 5</p>
+      <p>Order Count: <em id="keylime-count">0</em></p>
     </div>
   </div>
   <div>
@@ -82,16 +82,9 @@
 <script src="js/login.js"></script>
 <script src="js/menu.js"></script>
 <script>
-  fetch('/config').then((r) => {
-    if (r.ok) {
-      r.json().then((config) => {
-        const serviceNameEl = document.querySelector('#serviceName');
-        serviceNameEl.textContent = config.name;
-      });
-    }
-  });
   window.onload = (event) => {
     updateUserName();
+    updateOrderCount({keylime: 0, rasp: 0})
   }
 </script>
   </body>
