@@ -23,6 +23,7 @@ class Arizonut {
     }
 }
 
+let arizonuts = [];
 const orderDialog = document.getElementById("order-dialog");
 
 function loadMenu() {
@@ -42,10 +43,10 @@ function loadMenu() {
         price: 6.00,
         style: {title_color: "#a64d79"}
     }
-    let arizonuts = [];
     arizonuts.push(new Arizonut(keylime));
     arizonuts.push(new Arizonut(rasp));
-    insertMenuOptions(arizonuts);
+    createMenuOptions(arizonuts);
+    createOrderDialog(arizonuts);
 }
 
 /*
@@ -55,7 +56,7 @@ function loadMenu() {
     void
   Inserts menu items into DOM
  */
-function insertMenuOptions(arizonuts) {
+function createMenuOptions() {
     let menu = document.getElementById("menu-container");
     arizonuts.forEach(arizonut => {
         let option = document.createElement("div");
@@ -75,7 +76,7 @@ function insertMenuOptions(arizonuts) {
         // Create order count
         let orderCount = document.createElement("p");
         orderCount.classList.add('menu-option-count');
-        orderCount.innerHTML = `Order Count: <em>${window.localStorage.getItem(arizonut.id)}</em>`;
+        orderCount.innerHTML = `Order Count: <em id="${arizonut.id}-order-count">${window.localStorage.getItem(arizonut.id)}</em>`;
         // Append all to option container
         option.appendChild(title);
         option.appendChild(img);
@@ -83,6 +84,41 @@ function insertMenuOptions(arizonuts) {
         // Append option to main menu container
         menu.appendChild(option);
     })
+}
+
+function createOrderDialog() {
+    let header = document.createElement("p");
+    header.innerText = "Complete your order";
+    orderDialog.appendChild(header);
+    // Add each menu option
+    arizonuts.forEach(arizonut => {
+        let option = document.createElement("div");
+        option.classList.add("order-dialog-option-container");
+        // Create title
+        let name = document.createElement("h3");
+        name.classList.add("menu-option-title");
+        name.style.color = `${arizonut.style.title_color}`;
+        name.innerText = arizonut.name;
+        // Create amount input
+        let amount = document.createElement("input");
+        amount.id = `${arizonut.id}`;
+        amount.classList.add("amount-input");
+        amount.type = "number";
+        amount.value = "0";
+        amount.min = "0";
+        amount.step = "1";
+        // Append elements to parents
+        option.appendChild(name);
+        option.appendChild(amount);
+        orderDialog.appendChild(option);
+    })
+    let totalCost = document.createElement("p");
+    totalCost.innerHTML = "Total cost for deliciousness: <em id='total-cost'></em>";
+    let confirmBtn = document.createElement("button");
+    confirmBtn.innerText = 'Confirm';
+    confirmBtn.addEventListener("click", submitOrder);
+    orderDialog.appendChild(totalCost);
+    orderDialog.appendChild(confirmBtn);
 }
 
 function makeOrder() {
@@ -101,10 +137,15 @@ function closeDialog() {
 Processes and uploads order to database, updates order count
  */
 function submitOrder() {
-    let order = {};
-    order.keylime = document.getElementById("keylime-order-amt").value
-    order.rasp = document.getElementById("rasp-order-amt").value
-    updateOrderCount(order);
+    arizonuts.forEach(arizonut => {
+        let order_amount = document.getElementById(`${arizonut.id}`).value;
+        let curr_amount = window.localStorage.getItem(`${arizonut.id}`);
+        let new_amount = parseInt(order_amount) + parseInt(curr_amount);
+        window.localStorage.setItem(`${arizonut.id}`, toString(new_amount));
+        document.getElementById(`${arizonut.id}-order-count`).value = new_amount;
+    })
+    // TODO: Fix update order count
+    //updateOrderCount(order);
     closeDialog();
 }
 
