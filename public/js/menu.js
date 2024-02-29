@@ -127,18 +127,28 @@ function createOrderDialog() {
         amount.value = "0";
         amount.min = "0";
         amount.step = "1";
+        amount.addEventListener("change", updateTotalCost);
         // Append elements to parents
         option.appendChild(name);
         option.appendChild(amount);
         orderDialog.appendChild(option);
     })
     let totalCost = document.createElement("p");
-    totalCost.innerHTML = "Total cost for deliciousness: <em id='total-cost'></em>";
+    totalCost.innerHTML = "Total cost for deliciousness: <em id='total-cost'>$0</em>";
     let confirmBtn = document.createElement("button");
     confirmBtn.innerText = 'Confirm';
     confirmBtn.addEventListener("click", submitOrder);
     orderDialog.appendChild(totalCost);
     orderDialog.appendChild(confirmBtn);
+}
+
+function updateTotalCost() {
+    let totalCost = 0;
+    arizonuts.forEach(arizonut => {
+        let amount = document.getElementById(`${arizonut.id}-order-amount`).value
+        totalCost += amount * arizonut.price
+    })
+    document.getElementById("total-cost").innerText = `$${totalCost}`;
 }
 
 function makeOrder() {
