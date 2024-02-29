@@ -72,5 +72,32 @@ I recently added the following stylistic features to the page
 - button:hover animation
 - Footers
 
+## Javascript
 
+### Login
 
+- Added link in top-right corner to Login page
+- After user is logged in the `Login` link is replaced with the `username` in the top-right corner
+- Hovering over `username` will display button to `Logout` of account
+- Pages load dynamic content based on if user is logged in or not
+
+### Menu
+
+- All content is now dynamically loaded to make it easier to modify menu
+- Order Count is updated, stored and retrieved from localStorage
+- An order form appears when user clicks `Make Order` button
+- The order form is dynamically loaded from current menu
+- the order form contains a `total_cost` display that updates in real-time when user changes quantity of order
+- When user clicks `Confirm` on the order form, the following results take place:
+- - The total order counts are updated
+- - The order gets saved into localStorage
+- - The order is uploaded into `Orders` tab in the orders table with relevant data
+
+### Orders
+
+- All content is now dynamically loaded
+- If user is not logged in, page displays a "you must log in to see orders" message
+- If user is logged in but has no orders, page displays a "you have no orders" message
+- If user has previous orders, all orders are loaded from localStorage and displayed in a table
+- Each order comes with an option button to cancel the order
+- When canceled, the order is removed from localStorage and the window is reloaded
