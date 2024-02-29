@@ -33,7 +33,7 @@ function Order(order_items) {
     let userOrderCount = window.localStorage.getItem(`${username}-order-count`);
     order.id = username+"_"+userOrderCount;
     order.name_on_order = username;
-    order.time = new Date(Date.now()).toString()
+    order.time = new Date(Date.now()).toDateString()
     const init_val = 0;
     order.total_cost = order_items.reduce((accum, curr) =>
         accum + parseInt(curr.amount)*curr.price, init_val
