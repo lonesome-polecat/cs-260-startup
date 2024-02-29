@@ -26,6 +26,23 @@ class Arizonut {
 let arizonuts = [];
 const orderDialog = document.getElementById("order-dialog");
 
+function Order(order_items) {
+    let order = {};
+    // TODO: complete contructor, combine orders into one JSON order
+    let username = window.localStorage.getItem('username');
+    let userOrderCount = window.localStorage.getItem(`${username}-order-count`);
+    order.id = username+"_"+userOrderCount;
+    order.name_on_order = username;
+    order.time = new Date(Date.now()).toString()
+    const init_val = 0;
+    order.total_cost = order_items.reduce((accum, curr) =>
+        accum + parseInt(curr.amount)*curr.price, init_val
+    )
+    order.items = order_items;
+    console.log(order);
+    window.localStorage.setItem(`${order.id}`, JSON.stringify(order))
+}
+
 function loadMenu() {
     let keylime = {
         name: "Keylime Pie",
@@ -76,7 +93,7 @@ function createMenuOptions() {
         // Create order count
         let orderCount = document.createElement("p");
         orderCount.classList.add('menu-option-count');
-        orderCount.innerHTML = `Order Count: <em id="${arizonut.id}-order-count">${window.localStorage.getItem(arizonut.id)}</em>`;
+        orderCount.innerHTML = `Order Count: <em id="${arizonut.id}-total-order-count">0<em>`;
         // Append all to option container
         option.appendChild(title);
         option.appendChild(img);
@@ -101,7 +118,7 @@ function createOrderDialog() {
         name.innerText = arizonut.name;
         // Create amount input
         let amount = document.createElement("input");
-        amount.id = `${arizonut.id}`;
+        amount.id = `${arizonut.id}-order-amount`;
         amount.classList.add("amount-input");
         amount.type = "number";
         amount.value = "0";
@@ -137,41 +154,34 @@ function closeDialog() {
 Processes and uploads order to database, updates order count
  */
 function submitOrder() {
+    // Update user order count to use for unique order id later
+    if (window.localStorage.getItem(`${window.localStorage.getItem("username")}-order-count`) === null) {
+        window.localStorage.setItem(`${window.localStorage.getItem("username")}-order-count`, "0");
+    }
+    let curr_count = window.localStorage.getItem(`${window.localStorage.getItem("username")}-order-count`)
+    curr_count = parseInt(curr_count)+1;
+    window.localStorage.setItem(`${window.localStorage.getItem("username")}-order-count`, curr_count);
+
+    let sub_orders = [];
     arizonuts.forEach(arizonut => {
-        let order_amount = document.getElementById(`${arizonut.id}`).value;
-        let curr_amount = window.localStorage.getItem(`${arizonut.id}`);
-        let new_amount = parseInt(order_amount) + parseInt(curr_amount);
-        window.localStorage.setItem(`${arizonut.id}`, toString(new_amount));
-        document.getElementById(`${arizonut.id}-order-count`).value = new_amount;
+        // Save order to localStorage
+        let order_item = {};
+        let order_amount = document.getElementById(`${arizonut.id}-order-amount`);
+        if (order_amount.value === 0) {
+            return;
+        }
+        order_item.id = arizonut.id;
+        order_item.price = arizonut.price;
+        order_item.amount = order_amount.value;
+        sub_orders.push(order_item);
+        // TODO: Complete order and upload to localStorage to load in database (they will need to be logged in to make an order)
+        // TODO: update total cost in order-dialog when order-amount changes (onchange listener event)
+        let curr_order_total = document.getElementById(`${arizonut.id}-total-order-count`);
+        let new_amount = parseInt(order_amount.value) + parseInt(curr_order_total.innerText);
+        curr_order_total.innerText = new_amount;
+        order_amount.value = 0;
     })
-    // TODO: Fix update order count
-    //updateOrderCount(order);
+    let newOrder = new Order(sub_orders);
+
     closeDialog();
-}
-
-/*
-@Params: void
-@Returns: void
-Updates the order count for each donut
- */
-function updateOrderCount(order) {
-    let curr_counts = {};
-    curr_counts.keylime = window.localStorage.getItem("keylime-count");
-    if (curr_counts.keylime === null) {
-        window.localStorage.setItem("keylime-count", "0");
-        curr_counts.keylime = 0;
-    }
-    curr_counts.rasp = window.localStorage.getItem("rasp-count");
-    if (curr_counts.rasp === null) {
-        window.localStorage.setItem("rasp-count", "0");
-        curr_counts.rasp = 0;
-    }
-    curr_counts.keylime += order.keylime;
-    curr_counts.rasp += order.rasp;
-
-    document.getElementById("keylime-count").innerHTML = curr_counts.keylime;
-    document.getElementById("rasp-count").innerHTML = curr_counts.rasp;
-    window.localStorage.setItem("keylime-count", curr_counts.keylime);
-    window.localStorage.setItem("rasp-count", curr_counts.rasp);
-
 }
