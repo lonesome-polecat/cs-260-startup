@@ -6,12 +6,13 @@ Checks if user is logged in. If so, loads orders, else displays
 function checkLogin() {
     let username = window.localStorage.getItem("username");
     if (username === null) {
-        let body = document.getElementsByTagName("body")[0];
-        let data = document.createElement("div");
-        data.innerHTML = '<p>You must first login to see order history</p>';
-        body.appendChild(data);
+        let container = document.getElementById("orders-table-container")
+        let message = document.createElement("p");
+        message.innerText = 'You must first login to see order history';
+        container.appendChild(document.createElement("br"));
+        container.appendChild(message);
     } else {
-        includeHTML();
+        // includeHTML();
         loadOrders();
     }
 }
@@ -52,6 +53,9 @@ function loadOrders() {
         const username = window.localStorage.getItem("username");
         let order = window.localStorage.getItem(`${username}_${i}`);
         if (order === null) {
+            if (i === 1) {
+                loadNoOrders();
+            }
             break;
         } else {
             if (i === 1) {
@@ -62,6 +66,11 @@ function loadOrders() {
                 tr.innerHTML = "<th>Order ID</th><th>Time Ordered</th><th>Name on Order</th><th>Details</th><th>Total Cost</th><th>&nbsp;</th>"
                 table.appendChild(tr);
                 let container = document.getElementById("orders-table-container");
+                container.appendChild(document.createElement("br"))
+                let someText = document.createElement("p")
+                someText.innerText = "Check out your orders...";
+                container.appendChild(someText)
+                container.appendChild(document.createElement("br"))
                 container.appendChild(table);
             }
             order = JSON.parse(order)
@@ -88,7 +97,7 @@ function loadOrder(table, order) {
     let orderCost = document.createElement("td")
     orderCost.innerText = "$" + order.total_cost;
     let cancelOrder = document.createElement("td")
-    cancelOrder.innerHTML = "<button class='order' onclick=cancelOrder>Cancel Order</button>";
+    cancelOrder.innerHTML = `<button class='order' onclick=cancelOrder('${order.id}')>Cancel Order</button>`;
 
     tr.appendChild(orderId);
     tr.appendChild(orderTime);
@@ -97,4 +106,18 @@ function loadOrder(table, order) {
     tr.appendChild(orderCost);
     tr.appendChild(cancelOrder);
     table.appendChild(tr);
+}
+
+function loadNoOrders() {
+    let container = document.getElementById("orders-table-container");
+    container.innerHTML = "<br><p>Looks like you haven't made any orders yet...</p>"
+}
+
+function cancelOrder(orderId) {
+    window.localStorage.removeItem(orderId);
+    // decrement user order count
+    let curr_count = window.localStorage.getItem(`${window.localStorage.getItem("username")}-order-count`)
+    curr_count = parseInt(curr_count)-1;
+    window.localStorage.setItem(`${window.localStorage.getItem("username")}-order-count`, curr_count);
+    window.location.reload();
 }
