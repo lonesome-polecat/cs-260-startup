@@ -62,8 +62,8 @@ function loadMenu() {
     }
     arizonuts.push(new Arizonut(keylime));
     arizonuts.push(new Arizonut(rasp));
-    createMenuOptions(arizonuts);
-    createOrderDialog(arizonuts);
+    createMenuOptions();
+    createOrderDialog();
 }
 
 /*
@@ -91,9 +91,12 @@ function createMenuOptions() {
         img.src = `${arizonut.img}`;
         img.alt = `${arizonut.name}`;
         // Create order count
+        if (window.localStorage.getItem(`${arizonut.id}-total-order-count`) === null) {
+            window.localStorage.setItem(`${arizonut.id}-total-order-count`, 0);
+        }
         let orderCount = document.createElement("p");
         orderCount.classList.add('menu-option-count');
-        orderCount.innerHTML = `Order Count: <em id="${arizonut.id}-total-order-count">0<em>`;
+        orderCount.innerHTML = `Order Count: <em id="${arizonut.id}-total-order-count">${window.localStorage.getItem(arizonut.id+"-total-order-count")}<em>`;
         // Append all to option container
         option.appendChild(title);
         option.appendChild(img);
@@ -178,11 +181,11 @@ function submitOrder() {
         order_item.price = arizonut.price;
         order_item.amount = order_amount.value;
         sub_orders.push(order_item);
-        // TODO: Complete order and upload to localStorage to load in database (they will need to be logged in to make an order)
         // TODO: update total cost in order-dialog when order-amount changes (onchange listener event)
         let curr_order_total = document.getElementById(`${arizonut.id}-total-order-count`);
         let new_amount = parseInt(order_amount.value) + parseInt(curr_order_total.innerText);
         curr_order_total.innerText = new_amount;
+        window.localStorage.setItem(`${arizonut.id}-total-order-count`, new_amount);
         order_amount.value = 0;
     })
     let newOrder = new Order(sub_orders);
