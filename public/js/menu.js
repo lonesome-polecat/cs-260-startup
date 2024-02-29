@@ -139,6 +139,10 @@ function createOrderDialog() {
 }
 
 function makeOrder() {
+    if (window.localStorage.getItem("username") === null) {
+        alert("You need to log in before making an order")
+        return;
+    }
     orderDialog.showModal();
     orderDialog.style.display = "flex";
 }
