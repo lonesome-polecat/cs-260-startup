@@ -108,6 +108,7 @@ function createMenuOptions() {
 
 function createOrderDialog() {
     let header = document.createElement("p");
+    header.id = "order-dialog-header";
     header.innerText = "Complete your order";
     orderDialog.appendChild(header);
     // Add each menu option
@@ -134,6 +135,7 @@ function createOrderDialog() {
         orderDialog.appendChild(option);
     })
     let totalCost = document.createElement("p");
+    totalCost.classList.add("total-cost");
     totalCost.innerHTML = "Total cost for deliciousness: <em id='total-cost'>$0</em>";
     let confirmBtn = document.createElement("button");
     confirmBtn.innerText = 'Confirm';
