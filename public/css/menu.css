@@ -47,10 +47,14 @@ div.order {
     border: 0;
     border-radius: 10px;
 }
+#order-dialog-header {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
 .order-dialog-option-container {
     display: flex;
     flex-direction: row;
-    padding: 10px;
+    padding: 5px;
     align-items: center;
     justify-content: space-between;
 }
@@ -58,4 +62,8 @@ div.order {
     display: block;
     max-width: 3em;
     max-height: 2.5em;
+}
+.total-cost {
+    font-style: italic;
+    padding: 20px 0px 20px 0px;
 }
