@@ -66,6 +66,18 @@ nav div {
     display: block;
     background-color: #fadd88;
 }
+#burger-menu {
+    display: none;
+    position: relative;
+}
+#burger-menu:hover ~ #nav-pullout {
+    display: block;
+}
+#burger-menu:hover ~ #nav-pullout .navbar {
+    display: block;
+    position: absolute;
+    right: 0px;
+}
 ul.navbar {
     list-style-type: none;
     overflow: hidden;
@@ -138,10 +150,25 @@ footer {
     background-color: #fadd88;
 }
 @media (max-width: 500px) {
+    .navbar {
+        display: none;
+    }
+    #burger-menu {
+        display: inline-block;
+        padding: 5px 10px 5px 15px;
+    }
     .large {
         display: none;
     }
     .small {
         display: block;
+    }
+}
+@keyframes nav-pullout {
+    from {
+        width: 0px;
+    }
+    to {
+        width: 300px;
     }
 }
