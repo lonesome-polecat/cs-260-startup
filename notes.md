@@ -106,3 +106,57 @@ After brainstorming with Lexy I came up with a number of things I want to add/ch
 - Web API and promises? Is it multithreading to call a promise (wtih timeout) without awaiting it?
 - Promises and async await (same thing, different syntax): Promise.then() <- only that which is in the .then() waits for the promise to resolve
 - Await is the same, it just takes all the code after it and sticks it in a .then() block
+
+## Design
+
+What am I expecting my user to actually accomplish with my program?
+What is the application actually doing?
+
+- Sequence diagram (sequencediagram.org)
+
+### Endpoints
+
+- Login
+- Logout
+- Submit Order
+- Get Orders
+- Cancel Orders
+
+Authentication is handled with cookies (after auth included in header with every request)\
+
+### Endpoint Design
+
+Grammatical - Noun/resource based (it is an object)
+Readable - /store/provo/order/28502
+Simple - Single responsibility principle (each endpoint does one thing)
+Documented - Open API (quasi-standard)
+
+Remote procedure call (RPC)
+Ex. POST /updateOrder
+{"id": 12345, "date": "today"}
+
+This is more functional instead of resource based - Prof. Jensen doesn't like it
+
+REST (http)
+PUT /order/2147
+verb noun
+
+Functional vs. OOP - RPC vs. REST
+
+GraphQL
+query {
+  getOrder(id: "2197") {
+    orders(filter: {date: {allofterms: "2134567"} }) {
+      store
+      description
+      orderedBy 
+    }
+  } 
+}
+
+CORS Policy - cross site request forgery
+fetch request - JS await fetch
+
+### Web Service Deliverable
+
+<img alt="endpoints design" src="public/img/arizonuts_endpoints.png">
