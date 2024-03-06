@@ -12,9 +12,11 @@ const serviceName = process.argv.length > 3 ? process.argv[3] : 'website';
 // Serve up the static content
 app.use(express.static('public'));
 
+app.use(express.json());
+
 const logger = (req, res, next) => {
   console.log(`RECEIVED ${req.method} REQUEST`);
-  console.log(req.params);
+  console.log(req.body);
   next();
 }
 
@@ -32,9 +34,12 @@ apiRouter.get('/orders/:username', (req, res, next) => {
 });
 
 apiRouter.post('/order', (req, res) => {
-  console.log(req.originalUrl);
-  console.log(req.body);
-  res.send({text: 'You made an order!'})
+  try {
+    createOrder(req);
+    res.send({status: 200, message: 'You made an order!'})
+  } catch (e) {
+    res.send({status: 400, message: e})
+  }
 })
 
 // Provide the version of the application
@@ -77,8 +82,11 @@ function getMenu() {
 }
 
 // method:POST
-function createOrder() {
-
+function createOrder(req) {
+  console.log("Creating new order from request")
+  orders.push(req.body)
+  console.log(`Number of orders: ${orders.length}`)
+  return true;
 }
 
 /* Orders Page */
