@@ -48,6 +48,45 @@ app.listen(port, () => {
 
 /*** BACKEND FUNCTIONS & DATA ***/
 let orders = [];
-function createOrder(req) {
+
+/* Login page */
+// method: POST
+function createUser() {
 }
 
+// method: POST?
+function login() {
+
+}
+
+// method: DELETE
+function logout() {
+
+}
+
+/* Menu Page */
+// method: GET
+function getMenu() {
+
+}
+
+// method:POST
+function createOrder() {
+
+}
+
+/* Orders Page */
+// method: GET
+function getOrders() {
+
+}
+
+// method: PUT
+function updateOrder() {
+
+}
+
+// method: DELETE
+function deleteOrder() {
+
+}
