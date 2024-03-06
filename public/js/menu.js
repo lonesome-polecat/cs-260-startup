@@ -26,7 +26,7 @@ class Arizonut {
 let arizonuts = [];
 const orderDialog = document.getElementById("order-dialog");
 
-function Order(order_items) {
+async function Order(order_items) {
     let order = {};
     // TODO: complete contructor, combine orders into one JSON order
     let username = window.localStorage.getItem('username');
@@ -41,6 +41,9 @@ function Order(order_items) {
     order.items = order_items;
     console.log(order);
     window.localStorage.setItem(`${order.id}`, JSON.stringify(order))
+    let req = {method: 'POST', headers: {"Content-Type": "application/json"}, body: JSON.stringify(order)}
+    let response = await fetch(`${window.location.origin}/api/order`, req)
+    console.log(response.json())
 }
 
 function loadMenu() {
@@ -193,14 +196,11 @@ function submitOrder() {
         order_item.price = arizonut.price;
         order_item.amount = order_amount.value;
         sub_orders.push(order_item);
-        // TODO: update total cost in order-dialog when order-amount changes (onchange listener event)
         let curr_order_total = document.getElementById(`${arizonut.id}-total-order-count`);
         let new_amount = parseInt(order_amount.value) + parseInt(curr_order_total.innerText);
         curr_order_total.innerText = new_amount;
         window.localStorage.setItem(`${arizonut.id}-total-order-count`, new_amount);
         order_amount.value = 0;
     })
-    let newOrder = new Order(sub_orders);
-
-    closeDialog();
+    Order(sub_orders).finally(closeDialog());
 }
