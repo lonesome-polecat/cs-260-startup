@@ -14,7 +14,7 @@ app.use(express.static('public'));
 
 const logger = (req, res, next) => {
   console.log(`RECEIVED ${req.method} REQUEST`);
-  console.log(req.body);
+  console.log(req.params);
   next();
 }
 
@@ -30,6 +30,12 @@ apiRouter.get('/orders/:username', (req, res, next) => {
   console.log(req.ip)
   res.send({username: req.params.username});
 });
+
+apiRouter.post('/order', (req, res) => {
+  console.log(req.originalUrl);
+  console.log(req.body);
+  res.send({text: 'You made an order!'})
+})
 
 // Provide the version of the application
 app.get('/config', (_req, res) => {
