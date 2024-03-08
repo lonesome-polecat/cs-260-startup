@@ -41,6 +41,7 @@ async function Order(order_items) {
     order.items = order_items;
     console.log(order);
     window.localStorage.setItem(`${order.id}`, JSON.stringify(order))
+    // TODO: make so if order amount for one donut = 0 it won't be added to Order
     let req = {method: 'POST', headers: {"Content-Type": "application/json"}, body: JSON.stringify(order)}
     let response = await fetch(`${window.location.origin}/api/order`, req)
     console.log(response.json())

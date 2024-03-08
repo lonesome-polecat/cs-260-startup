@@ -160,3 +160,15 @@ fetch request - JS await fetch
 ### Web Service Deliverable
 
 <img alt="endpoints design" src="public/img/arizonuts_endpoints.png">
+order JSON format
+{
+string: id
+string: name_on_order
+string: time
+string total_cost
+object items: {
+  string: id
+  float: price
+  int: amount
+  }
+}

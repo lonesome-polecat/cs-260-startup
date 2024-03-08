@@ -3,7 +3,7 @@
 @Returns:
 Checks if user is logged in. If so, loads orders, else displays
  */
-function checkLogin() {
+async function checkLogin() {
     let username = window.localStorage.getItem("username");
     if (username === null) {
         let container = document.getElementById("orders-table-container")
@@ -13,7 +13,7 @@ function checkLogin() {
         container.appendChild(message);
     } else {
         // includeHTML();
-        loadOrders();
+        await loadOrders();
     }
 }
 
@@ -45,38 +45,73 @@ function includeHTML() {
     }
 }
 
-function loadOrders() {
-    let i = 0;
-    let table;
-    while(true) {
-        i++;
-        const username = window.localStorage.getItem("username");
-        let order = window.localStorage.getItem(`${username}_${i}`);
-        if (order === null) {
-            if (i === 1) {
-                loadNoOrders();
-            }
-            break;
+async function loadOrders() {
+    const username = window.localStorage.getItem("username");
+    let req = {method: 'GET', headers: {"Content-Type": "application/json"}};
+    try {
+        let response = await fetch(`${window.location.origin}/api/orders/${username}`, req)
+        response = await response.json();
+        console.log(response);
+        if (response.order_count === 0) {
+            loadNoOrders()
         } else {
-            if (i === 1) {
-                table = document.createElement("table");
-                table.classList.add("orders");
-                let tr = document.createElement("tr");
-                tr.classList.add("headers");
-                tr.innerHTML = "<th>Order ID</th><th>Time Ordered</th><th>Name on Order</th><th>Details</th><th>Total Cost</th><th>&nbsp;</th>"
-                table.appendChild(tr);
-                let container = document.getElementById("orders-table-container");
-                container.appendChild(document.createElement("br"))
-                let someText = document.createElement("p")
-                someText.innerText = "Check out your orders...";
-                container.appendChild(someText)
-                container.appendChild(document.createElement("br"))
-                container.appendChild(table);
-            }
-            order = JSON.parse(order)
-            loadOrder(table, order)
+            let table = createTable();
+            response.orders.forEach(order => {
+                loadOrder(table, order);
+            })
         }
+    } catch (e) {
+        console.log(`There was an error loading orders. ${e}`);
     }
+
+    //
+    // while(true) {
+    //     i++;
+    //     const username = window.localStorage.getItem("username");
+    //     let order = window.localStorage.getItem(`${username}_${i}`);
+    //     if (order === null) {
+    //         if (i === 1) {
+    //             loadNoOrders();
+    //         }
+    //         break;
+    //     } else {
+    //         if (i === 1) {
+    //             table = document.createElement("table");
+    //             table.classList.add("orders");
+    //             let tr = document.createElement("tr");
+    //             tr.classList.add("headers");
+    //             tr.innerHTML = "<th>Order ID</th><th>Time Ordered</th><th>Name on Order</th><th>Details</th><th>Total Cost</th><th>&nbsp;</th>"
+    //             table.appendChild(tr);
+    //             let container = document.getElementById("orders-table-container");
+    //             container.appendChild(document.createElement("br"))
+    //             let someText = document.createElement("p")
+    //             someText.innerText = "Check out your orders...";
+    //             container.appendChild(someText)
+    //             container.appendChild(document.createElement("br"))
+    //             container.appendChild(table);
+    //         }
+    //         order = JSON.parse(order)
+    //         loadOrder(table, order)
+    //     }
+    // }
+}
+
+function createTable() {
+    let table = document.createElement("table");
+    table.classList.add("orders");
+    let tr = document.createElement("tr");
+    tr.classList.add("headers");
+    tr.innerHTML = "<th>Order ID</th><th>Time Ordered</th><th>Name on Order</th><th>Details</th><th>Total Cost</th><th>&nbsp;</th>"
+    table.appendChild(tr);
+    let container = document.getElementById("orders-table-container");
+    container.appendChild(document.createElement("br"))
+    let someText = document.createElement("p")
+    someText.innerText = "Check out your orders...";
+    container.appendChild(someText)
+    container.appendChild(document.createElement("br"))
+    container.appendChild(table);
+
+    return table;
 }
 
 function loadOrder(table, order) {
