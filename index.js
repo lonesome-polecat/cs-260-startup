@@ -28,9 +28,8 @@ app.use('/api', apiRouter);
 // app.route('/api'); // This is like an alias, saying "Use this route too"
 
 apiRouter.get('/orders/:username', (req, res, next) => {
-  console.log(req.originalUrl)
-  console.log(req.ip)
-  res.send({username: req.params.username});
+  let response = getOrders(req.params.username);
+  res.send(response);
 });
 
 apiRouter.post('/order', (req, res) => {
@@ -88,11 +87,26 @@ function createOrder(req) {
   console.log(`Number of orders: ${orders.length}`)
   return true;
 }
-
+// {
+//   string: id
+//   string: name_on_order
+//   string: time
+//   string total_cost
+//   object items: {
+//     string: id
+//     float: price
+//     int: amount
+//   }
+// }
 /* Orders Page */
 // method: GET
-function getOrders() {
-
+function getOrders(username) {
+  let userOrders = orders.filter(order => order.name_on_order === username);
+  let response = {}
+  response.username = username;
+  response.order_count = userOrders.length;
+  response.orders = userOrders;
+  return response;
 }
 
 // method: PUT
