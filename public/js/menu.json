@@ -1,0 +1,23 @@
+{"menu_items": [
+  {
+    "name": "Keylime Pie",
+    "id": "keylime",
+    "description": "Delicious limey",
+    "img": "../img/keylime.jpg",
+    "price": 6.00,
+    "style": {
+      "title_color": "#93c47d"
+    }
+  },
+  {
+    "name": "Raspberry Cheesecake",
+    "id": "raspcheese",
+    "description": "A beautiful creation that tastes as good as it looks",
+    "img": "../img/rasp_arizonut.jpg",
+    "price": 6.00,
+    "style": {
+      "title_color": "#a64d79"
+    }
+  }
+  ]
+}
