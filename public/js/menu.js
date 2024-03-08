@@ -47,25 +47,29 @@ async function Order(order_items) {
     console.log(response.json())
 }
 
-function loadMenu() {
-    let keylime = {
-        name: "Keylime Pie",
-        id: "keylime",
-        description: "Delicious limey",
-        img: "../img/keylime.jpg",
-        price: 6.00,
-        style: {title_color: "#93c47d"}
-    }
-    let rasp = {
-        name: "Raspberry Cheesecake",
-        id: "raspcheese",
-        description: "A beautiful creation that tastes as good as it looks",
-        img: "../img/rasp_arizonut.jpg",
-        price: 6.00,
-        style: {title_color: "#a64d79"}
-    }
-    arizonuts.push(new Arizonut(keylime));
-    arizonuts.push(new Arizonut(rasp));
+async function loadMenu() {
+    // let keylime = {
+    //     name: "Keylime Pie",
+    //     id: "keylime",
+    //     description: "Delicious limey",
+    //     img: "../img/keylime.jpg",
+    //     price: 6.00,
+    //     style: {title_color: "#93c47d"}
+    // }
+    // let rasp = {
+    //     name: "Raspberry Cheesecake",
+    //     id: "raspcheese",
+    //     description: "A beautiful creation that tastes as good as it looks",
+    //     img: "../img/rasp_arizonut.jpg",
+    //     price: 6.00,
+    //     style: {title_color: "#a64d79"}
+    // }
+    let response = await fetch('./js/menu.json')
+    response = await response.json()
+    console.log(response)
+    response.menu_items.forEach(item => {
+        arizonuts.push(new Arizonut(item))
+    })
     createMenuOptions();
     createOrderDialog();
 }
