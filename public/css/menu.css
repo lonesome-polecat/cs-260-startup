@@ -51,6 +51,25 @@ div.order {
     padding-top: 10px;
     padding-bottom: 20px;
 }
+.close-button {
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: #666666;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: large;
+}
+.topright {
+    position: absolute;
+    right: 0;
+    top: 0
+}
 .order-dialog-option-container {
     display: flex;
     flex-direction: row;
