@@ -8,6 +8,7 @@
   <link rel="icon" type="image/x-icon" href="/img/donut32.gif">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/menu.css">
+  <script src="./js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -38,7 +39,7 @@
     </div>
   </nav>
 </header>
-<main class="menu">
+<main class="menu" style="display: none">
     <br>
   <!-- Begin order dialog section -->
   <dialog id="order-dialog">
@@ -46,25 +47,16 @@
   <!-- End order dialog section -->
     <p style="text-align: center;">Our weekly pics! <br><br>You can see which arizonuts are most popular by the order count below, updated in real-time!</p>
   <div id="menu-container">
-<!--    <div class="menu-option">-->
-<!--      <h3 class="menu-option-title" style="color: #a64d79">Raspberry Cheesecake</h3>-->
-<!--      <img class="menu-option-img" src="img/rasp_arizonut.jpg" alt="raspberry cheesecake"/>-->
-<!--      <p>Order Count: <em id="rasp-count">0</em></p>-->
-<!--    </div>-->
-<!--    <div class="menu-option">-->
-<!--      <h3 class="menu-option-title" style="color: #93c47d">Key Lime Pie</h3>-->
-<!--      <img class="menu-option-img" src="img/keylime.jpg" alt="key lime"/>-->
-<!--      <p>Order Count: <em id="keylime-count">0</em></p>-->
-<!--    </div>-->
   </div>
   <div>
     <button id="make-order" onclick="makeOrder()">Order Now</button>
   </div>
   <br><br>
 </main>
-<footer style="position: relative;">
+<footer style="display: none">
 
 </footer>
+
 <script src="js/login.js"></script>
 <script src="js/menu.js"></script>
 <script>

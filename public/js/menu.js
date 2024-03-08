@@ -48,22 +48,8 @@ async function Order(order_items) {
 }
 
 async function loadMenu() {
-    // let keylime = {
-    //     name: "Keylime Pie",
-    //     id: "keylime",
-    //     description: "Delicious limey",
-    //     img: "../img/keylime.jpg",
-    //     price: 6.00,
-    //     style: {title_color: "#93c47d"}
-    // }
-    // let rasp = {
-    //     name: "Raspberry Cheesecake",
-    //     id: "raspcheese",
-    //     description: "A beautiful creation that tastes as good as it looks",
-    //     img: "../img/rasp_arizonut.jpg",
-    //     price: 6.00,
-    //     style: {title_color: "#a64d79"}
-    // }
+    // JQuery
+    $("main.menu").hide();
     let response = await fetch('./js/menu.json')
     response = await response.json()
     console.log(response)
@@ -72,6 +58,9 @@ async function loadMenu() {
     })
     createMenuOptions();
     createOrderDialog();
+
+    $("main.menu").fadeIn();
+    $("footer").fadeIn();
 }
 
 /*
