@@ -111,9 +111,16 @@ function createMenuOptions() {
 }
 
 function createOrderDialog() {
+    //<span onclick="document.getElementById('YourModalBox').style.display='none'" class="close-button topright">&times;</span>
     let header = document.createElement("p");
     header.id = "order-dialog-header";
     header.innerText = "Complete your order";
+    let closeDialogButton = document.createElement('span');
+    closeDialogButton.classList.add('close-button');
+    closeDialogButton.classList.add('topright');
+    closeDialogButton.innerHTML = '&times;';
+    closeDialogButton.addEventListener("click", closeDialog);
+    orderDialog.appendChild(closeDialogButton);
     orderDialog.appendChild(header);
     // Add each menu option
     arizonuts.forEach(arizonut => {
