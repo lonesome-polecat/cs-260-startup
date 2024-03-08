@@ -7,6 +7,7 @@
     <title>Arizonuts</title>
     <link rel="icon" type="image/x-icon" href="/img/donut32.gif">
     <link rel="stylesheet" href="css/main.css">
+    <script src="./js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -37,7 +38,7 @@
         </div>
     </nav>
 </header>
-<main>
+<main style="display: none">
     <br>
     <p>Enjoy this picture of Arizona, brought to you by Pexels (a third-party)</p><br>
     <img src="https://images.pexels.com/photos/414136/pexels-photo-414136.jpeg?" alt="arizona landscape" width="400px" height="300px"/>
@@ -46,13 +47,15 @@
     <br><br>
     <a href="https://github.com/lonesome-polecat/startup" target="_blank"><em>GitHub Repo</em></a>
 </main>
-<footer>
+<footer style="display: none">
 
 </footer>
 <script src="js/login.js"></script>
 <script>
     window.onload = (event) => {
         updateUserName();
+        $("main").fadeIn();
+        $("footer").fadeIn();
     }
 </script>
 </body>
