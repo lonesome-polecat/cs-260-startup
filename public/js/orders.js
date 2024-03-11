@@ -101,7 +101,7 @@ function createTable() {
     table.classList.add("orders");
     let tr = document.createElement("tr");
     tr.classList.add("headers");
-    tr.innerHTML = "<th>Order ID</th><th>Time Ordered</th><th>Name on Order</th><th>Details</th><th>Total Cost</th><th>&nbsp;</th>"
+    tr.innerHTML = "<th>Order ID</th><th>Time Ordered</th><th>Name on Order</th><th>Pickup Time</th><th>Details</th><th>Total Cost</th><th>&nbsp;</th>"
     table.appendChild(tr);
     let container = document.getElementById("orders-table-container");
     container.appendChild(document.createElement("br"))
@@ -127,6 +127,8 @@ function loadOrder(table, order) {
     orderName.innerText = order.name_on_order;
     let orderTime = document.createElement("td")
     orderTime.innerText = order.time;
+    let orderPickupTime = document.createElement("td")
+    orderPickupTime.innerText = order.pickup_time;
     let orderDetails = document.createElement("td")
     orderDetails.innerText = details;
     let orderCost = document.createElement("td")
@@ -137,6 +139,7 @@ function loadOrder(table, order) {
     tr.appendChild(orderId);
     tr.appendChild(orderTime);
     tr.appendChild(orderName);
+    tr.appendChild(orderPickupTime);
     tr.appendChild(orderDetails);
     tr.appendChild(orderCost);
     tr.appendChild(cancelOrder);

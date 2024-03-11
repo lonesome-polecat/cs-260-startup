@@ -36,6 +36,7 @@ async function Order(order_items) {
     order.id = username+"_"+userOrderCount;
     order.name_on_order = username;
     order.time = new Date(Date.now()).toDateString()
+    order.pickup_time = document.getElementsByClassName('date-selector')[0].innerText + " " + document.getElementsByClassName('time-selector')[0].innerText
     const init_val = 0;
     order.total_cost = order_items.reduce((accum, curr) =>
         accum + parseInt(curr.amount)*curr.price, init_val
@@ -52,7 +53,7 @@ async function Order(order_items) {
 async function loadMenu() {
     // JQuery
     $("main.menu").hide();
-    let response = await fetch('./js/menu.json')
+    let response = await fetch(`${window.location.origin}/api/menu`)
     response = await response.json()
     console.log(response)
     response.menu_items.forEach(item => {
@@ -155,7 +156,7 @@ function createOrderDialog() {
 }
 
 async function loadTimePicker(timeSelection) {
-    // timeSelection: HTML div element
+    // TODO: This function is so messy. Cleanup
     let response = await fetch(`${window.location.origin}/api/times`, {method: 'GET'})
     response = await response.json()
     console.log(response)
@@ -276,8 +277,14 @@ function makeOrder() {
 function closeDialog() {
     orderDialog.style.display = "none";
     orderDialog.close();
+    updateOrderCount();
 }
 
+async function updateOrderCount() {
+    let response = await fetch(`${window.location.origin}/api/order/count`)
+    response = await response.json()
+    console.log(response)
+}
 /*
 @Params: void
 @Returns: void
