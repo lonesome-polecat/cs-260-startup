@@ -148,11 +148,21 @@ function loadNoOrders() {
     container.innerHTML = "<br><p>Looks like you haven't made any orders yet...</p>"
 }
 
-function cancelOrder(orderId) {
-    window.localStorage.removeItem(orderId);
-    // decrement user order count
-    let curr_count = window.localStorage.getItem(`${window.localStorage.getItem("username")}-order-count`)
-    curr_count = parseInt(curr_count)-1;
-    window.localStorage.setItem(`${window.localStorage.getItem("username")}-order-count`, curr_count);
-    window.location.reload();
+async function cancelOrder(orderId) {
+    let req = {method: 'DELETE', headers: {"Content-Type": "application/json"}};
+    try {
+        let response = await fetch(`${window.location.origin}/api/order/${orderId}`, req)
+        response = await response.json();
+        console.log(response);
+        window.location.reload();
+    } catch (e) {
+        console.log(`There was an error loading orders. ${e}`);
+    }
+
+    // window.localStorage.removeItem(orderId);
+    // // decrement user order count
+    // let curr_count = window.localStorage.getItem(`${window.localStorage.getItem("username")}-order-count`)
+    // curr_count = parseInt(curr_count)-1;
+    // window.localStorage.setItem(`${window.localStorage.getItem("username")}-order-count`, curr_count);
+    // window.location.reload();
 }
