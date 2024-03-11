@@ -44,6 +44,10 @@ apiRouter.get('/orders/:username', (req, res, next) => {
   res.send(response);
 });
 
+apiRouter.get('/order/count', (req, res, next) => {
+  res.send({status: 200, count: orderCount});
+});
+
 apiRouter.post('/order', (req, res) => {
   try {
     createOrder(req);
@@ -68,6 +72,15 @@ apiRouter.delete('/order/:id', (req, res) => {
   }
 })
 
+apiRouter.get('/menu', (req, res) => {
+  try {
+    let menu = createMenu()
+    res.send(menu)
+  } catch (e) {
+    console.log(e)
+  }
+})
+
 // Provide the version of the application
 app.get('/config', (_req, res) => {
   res.send({ version: '20221228.075705.1', name: serviceName });
@@ -86,6 +99,7 @@ app.listen(port, () => {
 
 /*** BACKEND FUNCTIONS & DATA ***/
 let orders = [];
+let orderCount = {};
 let availableDaysTimes = [];
 // availableDaysTimes = [ {date: string, times: string[ format: 24h:mm ] } ]
 
@@ -128,6 +142,11 @@ function getAvailableDaysTimes() {
   return availableDaysTimes
 }
 
+function createMenu() {
+  let response = JSON.parse(fs.readFileSync('./menu.json'))
+  return response;
+}
+
 /* Login page */
 // method: POST
 function createUser() {
@@ -152,7 +171,9 @@ function getMenu() {
 // method:POST
 function createOrder(req) {
   console.log("Creating new order from request")
+  console.log(req.body)
   orders.push(req.body)
+  req.body.items.forEach(item => orderCount[item.id] += parseInt(item.amount))
   console.log(`Number of orders: ${orders.length}`)
   return true;
 }
@@ -160,6 +181,7 @@ function createOrder(req) {
 //   string: id
 //   string: name_on_order
 //   string: time
+//   string: pickup_time
 //   string total_cost
 //   object items: {
 //     string: id
