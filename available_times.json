@@ -1,0 +1,14 @@
+{
+  "work_days": [
+    {
+      "date": "26 April 2024",
+      "open_time": "12:00",
+      "close_time": "16:00"
+    },
+    {
+      "date": "3 May 2024",
+      "open_time": "12:00",
+      "close_time": "15:00"
+    }
+  ]
+}

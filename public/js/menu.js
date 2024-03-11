@@ -24,7 +24,9 @@ class Arizonut {
 }
 
 let arizonuts = [];
+let timeDrops = {}
 const orderDialog = document.getElementById("order-dialog");
+
 
 async function Order(order_items) {
     let order = {};
@@ -141,13 +143,118 @@ function createOrderDialog() {
     let totalCost = document.createElement("p");
     totalCost.classList.add("total-cost");
     totalCost.innerHTML = "Total cost for deliciousness: <em id='total-cost'>$0</em>";
+    let timeSelection = document.createElement('div')
+    timeSelection.classList.add('time-selection-container')
+    loadTimePicker(timeSelection);
     let confirmBtn = document.createElement("button");
     confirmBtn.innerText = 'Confirm';
     confirmBtn.addEventListener("click", submitOrder);
     orderDialog.appendChild(totalCost);
+    orderDialog.appendChild(timeSelection);
     orderDialog.appendChild(confirmBtn);
 }
 
+async function loadTimePicker(timeSelection) {
+    // timeSelection: HTML div element
+    let response = await fetch(`${window.location.origin}/api/times`, {method: 'GET'})
+    response = await response.json()
+    console.log(response)
+    let days = response.body
+
+    let rowElement = document.createElement('div')
+    rowElement.classList.add('time-selection-row')
+
+    let dateSelector = document.createElement('button')
+    dateSelector.classList.add('date-selector')
+    dateSelector.addEventListener("click", showDateDropdown)
+
+    let timeSelector = document.createElement('button')
+    timeSelector.classList.add('time-selector')
+    timeSelector.addEventListener("click", showTimeDropdown)
+
+    rowElement.appendChild(dateSelector)
+    rowElement.appendChild(timeSelector)
+
+    let dateDropdown = document.createElement('div')
+    dateDropdown.id = 'date-dropdown'
+    dateDropdown.style.display = 'none'
+
+    days.forEach(day => {
+        let dateElement = document.createElement('button')
+        dateElement.innerText = day.date
+        dateElement.id = day.date.replace('/\s/g', '')
+        dateElement.addEventListener("click", updateSelectedDate)
+        let timeSelectDropdown = document.createElement('div')
+        timeSelectDropdown.style.display = 'none'
+        timeSelectDropdown.id = day.date.replace('/\s/g', '')
+        timeSelectDropdown.classList.add('time-dropdown')
+        console.log(`time select id = ${timeSelectDropdown.id}`)
+
+        day.times.forEach(time => {
+            console.log(time)
+            let timeOption = document.createElement('button')
+            timeOption.classList.add('time-option')
+            timeOption.innerText = time
+            timeOption.addEventListener("click", updateSelectedTime)
+            timeSelectDropdown.appendChild(timeOption)
+        })
+        dateDropdown.appendChild(dateElement)
+        timeDrops[day.date] = timeSelectDropdown
+        rowElement.appendChild(timeSelectDropdown)
+    })
+    dateSelector.innerText = days[0].date
+    dateSelector.id = days[0].date.replace('/\s/g', '')
+    timeSelector.innerText = days[0].times[0]
+
+    rowElement.appendChild(dateDropdown)
+    timeSelection.appendChild(rowElement)
+}
+
+function showDateDropdown() {
+    document.getElementById('date-dropdown').style.display = 'flex'
+}
+
+function hideDateDropdown() {
+    document.getElementById('date-dropdown').style.display = 'none'
+}
+
+function updateSelectedDate(self) {
+    console.log("updating selector...")
+    console.log(self.target.id)
+    let dateSelector = document.getElementsByClassName('date-selector')[0]
+    let timeSelector = document.getElementsByClassName('time-selector')[0]
+    console.log(dateSelector)
+    if (self.target.id == dateSelector.innerText) {
+        hideDateDropdown()
+        console.log('Same date selected')
+    } else {
+        dateSelector.innerText = self.target.innerText
+        dateSelector.id = self.target.id
+        timeSelector.innerText = timeDrops[dateSelector.id].childNodes[0].innerText
+        timeSelector.id = self.target.id
+        hideDateDropdown()
+        // TODO: update time selection box
+    }
+}
+
+function showTimeDropdown() {
+    let id = document.getElementsByClassName('date-selector')[0].id
+    console.log(`Date selector id = ${id}`)
+    timeDrops[id].style.display = 'flex';
+}
+
+function hideTimeDropdown() {
+    let id = document.getElementsByClassName('date-selector')[0].id
+    timeDrops[id].style.display = 'none';
+}
+
+function updateSelectedTime(self) {
+    console.log("updating selector...")
+    console.log(self.target.innerText)
+    let timeSelector = document.getElementsByClassName('time-selector')[0]
+    timeSelector.innerText = self.target.innerText
+    hideTimeDropdown()
+}
 function updateTotalCost() {
     let totalCost = 0;
     arizonuts.forEach(arizonut => {

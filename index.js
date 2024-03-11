@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs')
 
 /*** SERVER ROUTING ***/
 const app = express();
@@ -26,6 +27,17 @@ let apiRouter = express.Router();
 
 app.use('/api', apiRouter);
 // app.route('/api'); // This is like an alias, saying "Use this route too"
+
+apiRouter.get('/times', (req, res) => {
+  try {
+    let body = getAvailableDaysTimes()
+    let response = {status: 200, body: body}
+    res.send(response)
+  } catch (e) {
+    console.log(`Error trying to fetch available times: ${e}`)
+    res.send({status: 500, message: `Error trying to fetch available times: ${e}`})
+  }
+})
 
 apiRouter.get('/orders/:username', (req, res, next) => {
   let response = getOrders(req.params.username);
@@ -67,12 +79,54 @@ app.use((_req, res) => {
 });
 
 
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
 /*** BACKEND FUNCTIONS & DATA ***/
 let orders = [];
+let availableDaysTimes = [];
+// availableDaysTimes = [ {date: string, times: string[ format: 24h:mm ] } ]
+
+function createAvailableTimes() {
+  let jsonfile = JSON.parse(fs.readFileSync('./available_times.json'))
+  let workDays = jsonfile.work_days
+  workDays.forEach(day => {
+    let dayObj = {}
+    dayObj.date = day.date
+    dayObj.times = createTimes(day.open_time, day.close_time)
+    availableDaysTimes.push(dayObj)
+  })
+}
+
+createAvailableTimes()
+
+function createTimes(open_time, close_time) {
+  let times = []
+  let [hour, minutes] = open_time.split(":")
+  hour = parseInt(hour)
+  minutes = parseInt(minutes)
+  let interval = 15
+
+  let time = open_time
+  while(time !== close_time) {
+    times.push(time)
+    minutes += interval
+    if (minutes === 60) {
+      minutes = 0
+      hour += 1
+    }
+    let minString = minutes.toString().padEnd(2, "0")
+    time = `${hour}:${minString}`
+  }
+
+  return times
+}
+
+function getAvailableDaysTimes() {
+  return availableDaysTimes
+}
 
 /* Login page */
 // method: POST
