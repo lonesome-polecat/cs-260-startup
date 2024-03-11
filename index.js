@@ -41,6 +41,21 @@ apiRouter.post('/order', (req, res) => {
   }
 })
 
+// Needs auth checking
+apiRouter.delete('/order/:id', (req, res) => {
+  try {
+    let success = deleteOrder(req.params.id);
+    if (success) {
+      res.send({status: 200, message:`Successfully deleted order ${req.params.id}`});
+    } else {
+      res.send({status: 400, message:`Unable to find order ${req.params.id}`});
+    }
+  } catch (e) {
+    console.log(`ERROR: Unable to cancel order : ${e} `);
+    res.send({status: 500, message:'Error: unable to cancel order'})
+  }
+})
+
 // Provide the version of the application
 app.get('/config', (_req, res) => {
   res.send({ version: '20221228.075705.1', name: serviceName });
@@ -115,6 +130,14 @@ function updateOrder() {
 }
 
 // method: DELETE
-function deleteOrder() {
-
+function deleteOrder(order_id) {
+  let deleteSuccessful = false;
+  for (let i = 0; i < orders.length; i++) {
+    if (orders[i].id === order_id) {
+      orders.splice(i, 1);
+      deleteSuccessful = true;
+      break;
+    }
+  }
+  return deleteSuccessful;
 }

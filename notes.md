@@ -172,3 +172,28 @@ object items: {
   int: amount
   }
 }
+
+## Deployment and Production Systems
+* Rolling drain and replace
+
+Most services have multiple servers with a load balancer. 
+When updating system, do one at a time. Load balancer routes requests to other servers while you work on one, get it back online, then repeat with the next server.
+
+* Canary
+
+Put the canary down the hole to see if it dies quickly or not (if it's safe)
+Put out update on one server, route like 10% of traffic there and monitor logs, make sure it is working right, then slowly push the updates to the rest of the servers
+
+* Blue/Green
+
+Green is the new cluster, blue is old. Transfer slowly, if issue then immediately reroute back to blue.
+
+* A/B (marketing)
+
+Test out a new feature on a specific location, demographic, whatnot. Track status and see if better or not. Kind of like canary.
+
+^^^ This is good to keep in mind. For a transactional website, a single point of failure (particularly if updates are made) is an issue.
+Servers should be stateless - you should be able to kill, delete, remove, put up servers willy nilly
+Don't store database (or any state, files, etc.) on server
+
+At some point, I should mark all the points of failure for the website so debugging will be easier in the future
