@@ -30,7 +30,6 @@ const orderDialog = document.getElementById("order-dialog");
 
 async function Order(order_items) {
     let order = {};
-    // TODO: complete contructor, combine orders into one JSON order
     let username = window.localStorage.getItem('username');
     let userOrderCount = window.localStorage.getItem(`${username}-order-count`);
     order.id = username+"_"+userOrderCount;
@@ -39,15 +38,15 @@ async function Order(order_items) {
     order.pickup_time = document.getElementsByClassName('date-selector')[0].innerText + " " + document.getElementsByClassName('time-selector')[0].innerText
     const init_val = 0;
     order.total_cost = order_items.reduce((accum, curr) =>
-        accum + parseInt(curr.amount)*curr.price, init_val
+        accum + curr.amount*curr.price, init_val
     )
     order.items = order_items;
     console.log(order);
     window.localStorage.setItem(`${order.id}`, JSON.stringify(order))
-    // TODO: make so if order amount for one donut = 0 it won't be added to Order
     let req = {method: 'POST', headers: {"Content-Type": "application/json"}, body: JSON.stringify(order)}
     let response = await fetch(`${window.location.origin}/api/order`, req)
-    console.log(response.json())
+    response = await response.json()
+    console.log(response)
 }
 
 async function loadMenu() {
@@ -55,12 +54,12 @@ async function loadMenu() {
     $("main.menu").hide();
     let response = await fetch(`${window.location.origin}/api/menu`)
     response = await response.json()
-    console.log(response)
     response.menu_items.forEach(item => {
         arizonuts.push(new Arizonut(item))
     })
     createMenuOptions();
     createOrderDialog();
+    await updateOrderCount();
 
     $("main.menu").fadeIn();
     $("footer").fadeIn();
@@ -91,12 +90,12 @@ function createMenuOptions() {
         img.src = `${arizonut.img}`;
         img.alt = `${arizonut.name}`;
         // Create order count
-        if (window.localStorage.getItem(`${arizonut.id}-total-order-count`) === null) {
-            window.localStorage.setItem(`${arizonut.id}-total-order-count`, 0);
-        }
+        // if (window.localStorage.getItem(`${arizonut.id}-total-order-count`) === null) {
+        //     window.localStorage.setItem(`${arizonut.id}-total-order-count`, 0);
+        // }
         let orderCount = document.createElement("p");
         orderCount.classList.add('menu-option-count');
-        orderCount.innerHTML = `Order Count: <em id="${arizonut.id}-total-order-count">${window.localStorage.getItem(arizonut.id+"-total-order-count")}<em>`;
+        orderCount.innerHTML = `Order Count: <em id="${arizonut.id}-total-order-count"><em>`;
         // Append all to option container
         option.appendChild(title);
         option.appendChild(img);
@@ -159,7 +158,6 @@ async function loadTimePicker(timeSelection) {
     // TODO: This function is so messy. Cleanup
     let response = await fetch(`${window.location.origin}/api/times`, {method: 'GET'})
     response = await response.json()
-    console.log(response)
     let days = response.body
 
     let rowElement = document.createElement('div')
@@ -189,10 +187,8 @@ async function loadTimePicker(timeSelection) {
         timeSelectDropdown.style.display = 'none'
         timeSelectDropdown.id = day.date.replace('/\s/g', '')
         timeSelectDropdown.classList.add('time-dropdown')
-        console.log(`time select id = ${timeSelectDropdown.id}`)
 
         day.times.forEach(time => {
-            console.log(time)
             let timeOption = document.createElement('button')
             timeOption.classList.add('time-option')
             timeOption.innerText = time
@@ -220,14 +216,10 @@ function hideDateDropdown() {
 }
 
 function updateSelectedDate(self) {
-    console.log("updating selector...")
-    console.log(self.target.id)
     let dateSelector = document.getElementsByClassName('date-selector')[0]
     let timeSelector = document.getElementsByClassName('time-selector')[0]
-    console.log(dateSelector)
     if (self.target.id == dateSelector.innerText) {
         hideDateDropdown()
-        console.log('Same date selected')
     } else {
         dateSelector.innerText = self.target.innerText
         dateSelector.id = self.target.id
@@ -283,7 +275,10 @@ function closeDialog() {
 async function updateOrderCount() {
     let response = await fetch(`${window.location.origin}/api/order/count`)
     response = await response.json()
-    console.log(response)
+    arizonuts.forEach(arizonut => {
+        let order_count = document.getElementById(`${arizonut.id}-total-order-count`)
+        order_count.innerText = response.count[arizonut.id]
+    })
 }
 /*
 @Params: void
@@ -304,17 +299,17 @@ function submitOrder() {
         // Save order to localStorage
         let order_item = {};
         let order_amount = document.getElementById(`${arizonut.id}-order-amount`);
-        if (order_amount.value === 0) {
+        if (order_amount.value === '0') {
             return;
         }
         order_item.id = arizonut.id;
         order_item.price = arizonut.price;
-        order_item.amount = order_amount.value;
+        order_item.amount = parseInt(order_amount.value);
         sub_orders.push(order_item);
-        let curr_order_total = document.getElementById(`${arizonut.id}-total-order-count`);
-        let new_amount = parseInt(order_amount.value) + parseInt(curr_order_total.innerText);
-        curr_order_total.innerText = new_amount;
-        window.localStorage.setItem(`${arizonut.id}-total-order-count`, new_amount);
+        // let curr_order_total = document.getElementById(`${arizonut.id}-total-order-count`);
+        // let new_amount = parseInt(order_amount.value) + parseInt(curr_order_total.innerText);
+        // curr_order_total.innerText = new_amount;
+        // window.localStorage.setItem(`${arizonut.id}-total-order-count`, new_amount);
         order_amount.value = 0;
     })
     Order(sub_orders).finally(closeDialog());
