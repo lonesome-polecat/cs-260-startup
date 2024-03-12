@@ -17,7 +17,7 @@ app.use(express.json());
 
 const logger = (req, res, next) => {
   console.log(`RECEIVED ${req.method} REQUEST`);
-  console.log(req.body);
+  console.log(`DateTime: ${new Date()}`)
   next();
 }
 
@@ -45,7 +45,8 @@ apiRouter.get('/orders/:username', (req, res, next) => {
 });
 
 apiRouter.get('/order/count', (req, res, next) => {
-  res.send({status: 200, count: orderCount});
+  let counts = getOrderCount();
+  res.send({status: 200, count: counts});
 });
 
 apiRouter.post('/order', (req, res) => {
@@ -74,10 +75,10 @@ apiRouter.delete('/order/:id', (req, res) => {
 
 apiRouter.get('/menu', (req, res) => {
   try {
-    let menu = createMenu()
+    let menu = getMenu()
     res.send(menu)
   } catch (e) {
-    console.log(e)
+    console.log(`ERROR: Unable to load menu : ${e}`)
   }
 })
 
@@ -90,7 +91,6 @@ app.get('/config', (_req, res) => {
 app.use((_req, res) => {
   res.sendFile('./public/index.html', { root: './' });
 });
-
 
 
 app.listen(port, () => {
@@ -142,10 +142,6 @@ function getAvailableDaysTimes() {
   return availableDaysTimes
 }
 
-function createMenu() {
-  let response = JSON.parse(fs.readFileSync('./menu.json'))
-  return response;
-}
 
 /* Login page */
 // method: POST
@@ -165,7 +161,15 @@ function logout() {
 /* Menu Page */
 // method: GET
 function getMenu() {
-
+  console.log('Getting menu...')
+  let response = JSON.parse(fs.readFileSync('./menu.json'))
+  response.menu_items.forEach(item => {
+    if (orderCount[item.id] === undefined) {
+      console.log('order id is undefined')
+      orderCount[item.id] = 0
+    }
+  })
+  return response;
 }
 
 // method:POST
@@ -173,7 +177,10 @@ function createOrder(req) {
   console.log("Creating new order from request")
   console.log(req.body)
   orders.push(req.body)
-  req.body.items.forEach(item => orderCount[item.id] += parseInt(item.amount))
+  req.body.items.forEach(item => {
+    console.log(item.amount)
+    orderCount[item.id] += item.amount
+  })
   console.log(`Number of orders: ${orders.length}`)
   return true;
 }
@@ -189,6 +196,12 @@ function createOrder(req) {
 //     int: amount
 //   }
 // }
+
+// method: GET
+function getOrderCount() {
+  return orderCount;
+}
+
 /* Orders Page */
 // method: GET
 function getOrders(username) {
@@ -199,6 +212,7 @@ function getOrders(username) {
   response.orders = userOrders;
   return response;
 }
+
 
 // method: PUT
 function updateOrder() {
