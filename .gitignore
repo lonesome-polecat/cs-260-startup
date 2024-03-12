@@ -1,2 +1,3 @@
 .idea
 pushToProd.sh
+node_modules
