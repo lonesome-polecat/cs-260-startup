@@ -41,7 +41,9 @@
 <main style="display: none">
     <br>
     <p>Enjoy this picture of Arizona, brought to you by Pexels (a third-party)</p><br>
-    <img src="https://images.pexels.com/photos/414136/pexels-photo-414136.jpeg?" alt="arizona landscape" width="400px" height="300px"/>
+    <div id="pexel-image">
+
+    </div>
     <br>
     <p>Give us feedback on our desserts, website, or request a feature!</p>
     <br><br>
@@ -51,9 +53,11 @@
 
 </footer>
 <script src="js/login.js"></script>
+<script src="js/contact.js"></script>
 <script>
     window.onload = (event) => {
         updateUserName();
+        loadPage();
         $("main").fadeIn();
         $("footer").fadeIn();
     }
