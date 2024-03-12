@@ -5,7 +5,7 @@ const fs = require('fs')
 const app = express();
 
 // The service port defaults to 3000 or is read from the program arguments
-const port = process.argv.length > 2 ? process.argv[2] : 3000;
+const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 // Text to display for the service name
 const serviceName = process.argv.length > 3 ? process.argv[3] : 'website';
