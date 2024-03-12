@@ -101,3 +101,36 @@ I recently added the following stylistic features to the page
 - If user has previous orders, all orders are loaded from localStorage and displayed in a table
 - Each order comes with an option button to cancel the order
 - When canceled, the order is removed from localStorage and the window is reloaded
+
+## Service Deliverable
+
+### Menu
+
+***Endpoints***
+
+- GET /api/menu - returns menu options for the week
+- GET /api/order/count - returns total order count for each menu item
+- GET /api/times - returns available days and times for order pickup
+- POST /api/order - submits an order to the server for processing
+
+***Other Changes***
+
+- User can choose specific pickup date and time, added to order data
+- Order count is handled on server
+- Menu is loaded from server, dynamically generated using JSON file
+- Available times loaded from server, dynamically generated using JSON file
+
+### Orders
+
+***Endpoints***
+
+- GET /api/orders/:username - returns orders specific to the user's username
+- DELETE /api/order/:id - deletes specific order from database
+
+***Other Changes***
+
+- Order data updated to include pickup date and time for each order
+
+### Contact
+
+- Image obtained through Pexels API
