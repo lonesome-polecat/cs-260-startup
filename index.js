@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs')
+const { dbClient } = require('db.js')
 
 /*** SERVER ROUTING ***/
 const app = express();
@@ -87,6 +88,31 @@ app.get('/config', (_req, res) => {
   res.send({ version: '20221228.075705.1', name: serviceName });
 });
 
+app.post('/auth/new', (req, res) => {
+  try {
+    let response = createUser(req.body)
+    let cookie = ''
+    res.send({status: 200, message: response, cookie: cookie})
+  } catch (e) {
+    console.log(e)
+    res.send({status: 409, message: 'User already exists'})
+  }
+})
+
+app.post('/auth/login', (req, res) => {
+  try {
+    let response = userLogin(req.body)
+    let cookie = ''
+    res.send({status: 200, message: response, cookie: cookie})
+  } catch (e) {
+    res.send({status: 400, message: 'invalid credentials'})
+  }
+})
+
+app.get('/auth/me', (req, res) => {
+  // Use cookie to return info about user
+})
+
 // Return the homepage if the path is unknown
 app.use((_req, res) => {
   res.sendFile('./public/index.html', { root: './' });
@@ -145,16 +171,16 @@ function getAvailableDaysTimes() {
 
 /* Login page */
 // method: POST
-function createUser() {
+function createUser(body) {
+  // check body.username for duplicates
 }
 
 // method: POST?
-function login() {
-
+function userLogin() {
 }
 
 // method: DELETE
-function logout() {
+function userLogout() {
 
 }
 
