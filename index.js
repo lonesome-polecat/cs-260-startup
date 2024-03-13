@@ -190,11 +190,11 @@ function createOrder(req) {
 //   string: time
 //   string: pickup_time
 //   string total_cost
-//   object items: {
+//   object items: [{
 //     string: id
 //     float: price
 //     int: amount
-//   }
+//   }]
 // }
 
 // method: GET

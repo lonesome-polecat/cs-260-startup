@@ -202,3 +202,4 @@ At some point, I should mark all the points of failure for the website so debugg
 
 MySQL is jack-of-all-trades, other DBs are specialized
 Databases can be turned on and off, data is persisted
+![DB tips](./public/img/img.png)
