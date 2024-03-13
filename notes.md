@@ -197,3 +197,8 @@ Servers should be stateless - you should be able to kill, delete, remove, put up
 Don't store database (or any state, files, etc.) on server
 
 At some point, I should mark all the points of failure for the website so debugging will be easier in the future
+
+## Database
+
+MySQL is jack-of-all-trades, other DBs are specialized
+Databases can be turned on and off, data is persisted
