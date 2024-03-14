@@ -69,9 +69,11 @@ nav div {
 #burger-menu {
     display: none;
     position: relative;
+    border: solid 0px #ffffff;
 }
-#burger-menu:hover ~ #nav-pullout {
-    display: block;
+#burger-menu:hover{
+    cursor: pointer;
+    border: solid 1px #666666;
 }
 #burger-menu:hover ~ #nav-pullout .navbar {
     display: block;
@@ -163,7 +165,7 @@ footer {
     }
     #burger-menu {
         display: inline-block;
-        padding: 5px 10px 5px 15px;
+        margin: 5px 10px 5px 15px;
     }
     .large {
         display: none;
