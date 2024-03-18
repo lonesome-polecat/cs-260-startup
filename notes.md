@@ -213,3 +213,6 @@ Databases can be turned on and off, data is persisted
 - Put before every function (clarify parameter and return types, basic outline of function)
 - If doing something hacky, put comment to explain
 
+Wireshark is a program that grabs all packets transferred across the network, unencrypted traffic not safe
+
+Cookies store session information (authentication, language preference, browsing history, length of stay, etc.)
