@@ -1,6 +1,10 @@
 const express = require('express');
 const fs = require('fs')
-const { dbClient } = require('db.js')
+const { dbClient } = require('./db.js')
+const cookieParser = require('cookie-parser')
+
+const db = new dbClient();
+const authCookieName = 'token';
 
 /*** SERVER ROUTING ***/
 const app = express();
@@ -15,6 +19,8 @@ const serviceName = process.argv.length > 3 ? process.argv[3] : 'website';
 app.use(express.static('public'));
 
 app.use(express.json());
+
+app.use(cookieParser());
 
 const logger = (req, res, next) => {
   console.log(`RECEIVED ${req.method} REQUEST`);
@@ -40,6 +46,11 @@ apiRouter.get('/times', (req, res) => {
   }
 })
 
+let secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
+
+
+// Needs auth checking
 apiRouter.get('/orders/:username', (req, res, next) => {
   let response = getOrders(req.params.username);
   res.send(response);
@@ -50,6 +61,7 @@ apiRouter.get('/order/count', (req, res, next) => {
   res.send({status: 200, count: counts});
 });
 
+// Needs auth checking
 apiRouter.post('/order', (req, res) => {
   try {
     createOrder(req);
@@ -88,14 +100,20 @@ app.get('/config', (_req, res) => {
   res.send({ version: '20221228.075705.1', name: serviceName });
 });
 
-app.post('/auth/new', (req, res) => {
+app.post('/auth/new', async (req, res) => {
   try {
-    let response = createUser(req.body)
-    let cookie = ''
-    res.send({status: 200, message: response, cookie: cookie})
+    if (await db.getUser(req.body.username)) {
+      res.send({status: 409, message: 'User already exists'})
+    } else {
+      const user = await db.createUser(req.body)
+
+      setAuthCookie(res, user.token);
+
+      res.send({status: 200, message: 'Created new user'})
+
+    }
   } catch (e) {
     console.log(e)
-    res.send({status: 409, message: 'User already exists'})
   }
 })
 
@@ -171,10 +189,15 @@ function getAvailableDaysTimes() {
 
 /* Login page */
 // method: POST
-function createUser(body) {
-  // check body.username for duplicates
-}
 
+function setAuthCookie(res, token) {
+  res.cookie(authCookieName, token, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+    expires: 1800
+  })
+}
 // method: POST?
 function userLogin() {
 }
