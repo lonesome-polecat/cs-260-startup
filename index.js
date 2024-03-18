@@ -110,7 +110,6 @@ app.post('/auth/new', async (req, res) => {
       setAuthCookie(res, user.token);
 
       res.send({status: 200, message: 'Created new user'})
-
     }
   } catch (e) {
     console.log(e)
