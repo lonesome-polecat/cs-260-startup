@@ -3,7 +3,7 @@ const config = require('./dbConfig.json')
 const bcrypt = require('bcrypt')
 const uuid = require('uuid')
 
-export default class dbClient {
+class dbClient {
     constructor() {
         console.log('Starting connection...')
 
@@ -60,6 +60,14 @@ export default class dbClient {
         }
     }
 
+    async getUserByToken(token) {
+        return this.getItem('customers', {token: token})
+    }
+
+    async getUser(username) {
+        return this.getItem('customers', {username: username})
+    }
+
     async checkForDuplicate(collection_name, pattern) {
         try {
             const collection = db.collection(collection_name)
@@ -83,11 +91,12 @@ export default class dbClient {
             last_name: body.last_name,
             email: body.email,
             password: password,
-            phone_number: ''
+            phone_number: '',
+            token: uuid.v4()
         }
         try {
             await this.insertItem('customers', user)
-            return true
+            return user
         } catch (e) {
             console.log(e)
             return false
@@ -112,3 +121,6 @@ let order = {
 
 //insertItem('orders', order)
 //getItem('orders', {id: 'helam_1'})
+module.exports = {
+    dbClient
+}
