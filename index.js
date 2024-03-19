@@ -140,15 +140,20 @@ body: {
  */
 
 app.post('/auth/login', async (req, res) => {
-  const user = await db.getUser(req.body.username)
-  if (user) {
-    if (await bcrypt.compare(req.body.password, user.password)) {
-      setAuthCookie(res, user.token)
-      res.send({status: 200, message: 'successfully logged in'})
-      return
+  try {
+    const user = await db.getUser(req.body.email)
+    if (user) {
+      if (await bcrypt.compare(req.body.password, user.password)) {
+        setAuthCookie(res, user.token)
+        res.send({status: 200, message: 'successfully logged in'})
+        return
+      }
     }
+    res.send({status: 401, message: 'Unauthorized'})
+  } catch (e) {
+    console.log(e)
+    res.send({status: 500, message: 'Unable to login'})
   }
-  res.send({status: 401, message: 'Unauthorized'})
 })
 
 app.get('/auth/me', (req, res) => {
