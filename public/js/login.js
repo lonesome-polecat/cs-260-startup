@@ -10,16 +10,20 @@ async function submitLogin() {
     let req = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: {
-            username: username,
+        body: JSON.stringify({
+            email: username,
             password: password,
-        }
+        })
     }
+    console.log(req)
     let response = await fetch(`${window.location.origin}/auth/login`, req)
     response = await response.json()
+    let name = response.first_name;
+    console.log(response)
     if (response.status === 200) {
+        window.localStorage.setItem("username", name);
         window.location.href = "../index.html";
         updateUserName();
     } else {
