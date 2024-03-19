@@ -141,11 +141,12 @@ body: {
 
 app.post('/auth/login', async (req, res) => {
   try {
+    console.log(req.body)
     const user = await db.getUser(req.body.email)
     if (user) {
       if (await bcrypt.compare(req.body.password, user.password)) {
         setAuthCookie(res, user.token)
-        res.send({status: 200, message: 'successfully logged in'})
+        res.send({status: 200, message: 'successfully logged in', first_name: user.first_name})
         return
       }
     }
