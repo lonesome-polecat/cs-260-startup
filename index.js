@@ -1,7 +1,8 @@
 const express = require('express');
 const fs = require('fs')
-const { dbClient } = require('./db.js')
+const bcrypt = require('bcrypt')
 const cookieParser = require('cookie-parser')
+const { dbClient } = require('./db.js')
 
 const db = new dbClient();
 const authCookieName = 'token';
@@ -49,9 +50,18 @@ apiRouter.get('/times', (req, res) => {
 let secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
 
+secureApiRouter.use(async (res, req, next) => {
+  let token = req.cookie[authCookieName]
+  const user = await db.getUserByToken(token)
+  if (user) {
+    next()
+  } else {
+    res.send({status: 401, message: 'Unauthorized'})
+  }
+})
 
 // Needs auth checking
-apiRouter.get('/orders/:username', (req, res, next) => {
+secureApiRouter.get('/orders/:username', (req, res, next) => {
   let response = getOrders(req.params.username);
   res.send(response);
 });
@@ -116,14 +126,16 @@ app.post('/auth/new', async (req, res) => {
   }
 })
 
-app.post('/auth/login', (req, res) => {
-  try {
-    let response = userLogin(req.body)
-    let cookie = ''
-    res.send({status: 200, message: response, cookie: cookie})
-  } catch (e) {
-    res.send({status: 400, message: 'invalid credentials'})
+app.post('/auth/login', async (req, res) => {
+  const user = await db.getUser(req.body.username)
+  if (user) {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token)
+      res.send({status: 200, message: 'successfully logged in'})
+      return
+    }
   }
+  res.send({status: 401, message: 'Unauthorized'})
 })
 
 app.get('/auth/me', (req, res) => {
@@ -196,9 +208,6 @@ function setAuthCookie(res, token) {
     sameSite: 'strict',
     expires: 1800
   })
-}
-// method: POST?
-function userLogin() {
 }
 
 // method: DELETE

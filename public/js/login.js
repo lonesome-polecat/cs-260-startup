@@ -3,11 +3,28 @@
 @Returns: void
 Takes login information and checks it for correctness, then calls updateUserName()
  */
-function submitLogin() {
+async function submitLogin() {
     let username = document.getElementById("username").value;
-    window.localStorage.setItem("username", username);
-    window.location.href = "../index.html";
-    updateUserName();
+    let password = document.getElementById("password").value;
+    // window.localStorage.setItem("username", username);
+    let req = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: {
+            username: username,
+            password: password,
+        }
+    }
+    let response = await fetch(`${window.location.origin}/auth/login`, req)
+    response = await response.json()
+    if (response.status === 200) {
+        window.location.href = "../index.html";
+        updateUserName();
+    } else {
+        alert('Invalid credentials')
+    }
 }
 
 /*
