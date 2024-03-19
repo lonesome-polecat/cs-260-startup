@@ -47,54 +47,10 @@ apiRouter.get('/times', (req, res) => {
   }
 })
 
-let secureApiRouter = express.Router();
-apiRouter.use(secureApiRouter);
-
-secureApiRouter.use(async (res, req, next) => {
-  let token = req.cookie[authCookieName]
-  const user = await db.getUserByToken(token)
-  if (user) {
-    next()
-  } else {
-    res.send({status: 401, message: 'Unauthorized'})
-  }
-})
-
-// Needs auth checking
-secureApiRouter.get('/orders/:username', (req, res, next) => {
-  let response = getOrders(req.params.username);
-  res.send(response);
-});
-
 apiRouter.get('/order/count', (req, res, next) => {
   let counts = getOrderCount();
   res.send({status: 200, count: counts});
 });
-
-// Needs auth checking
-apiRouter.post('/order', (req, res) => {
-  try {
-    createOrder(req);
-    res.send({status: 200, message: 'You made an order!'})
-  } catch (e) {
-    res.send({status: 400, message: e})
-  }
-})
-
-// Needs auth checking
-apiRouter.delete('/order/:id', (req, res) => {
-  try {
-    let success = deleteOrder(req.params.id);
-    if (success) {
-      res.send({status: 200, message:`Successfully deleted order ${req.params.id}`});
-    } else {
-      res.send({status: 400, message:`Unable to find order ${req.params.id}`});
-    }
-  } catch (e) {
-    console.log(`ERROR: Unable to cancel order : ${e} `);
-    res.send({status: 500, message:'Error: unable to cancel order'})
-  }
-})
 
 apiRouter.get('/menu', (req, res) => {
   try {
@@ -160,6 +116,51 @@ app.post('/auth/login', async (req, res) => {
 app.get('/auth/me', (req, res) => {
   // Use cookie to return info about user
 })
+
+let secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
+
+secureApiRouter.use(async (req, res, next) => {
+  let token = req?.cookies[authCookieName]
+  const user = await db.getUserByToken(token)
+  if (user) {
+    next()
+  } else {
+    res.send({status: 401, message: 'Unauthorized'})
+  }
+})
+
+// Needs auth checking
+secureApiRouter.get('/orders/:username', (req, res, next) => {
+  let response = getOrders(req.params.username);
+  res.send(response);
+});
+
+// Needs auth checking
+apiRouter.post('/order', (req, res) => {
+  try {
+    createOrder(req);
+    res.send({status: 200, message: 'You made an order!'})
+  } catch (e) {
+    res.send({status: 400, message: e})
+  }
+})
+
+// Needs auth checking
+apiRouter.delete('/order/:id', (req, res) => {
+  try {
+    let success = deleteOrder(req.params.id);
+    if (success) {
+      res.send({status: 200, message:`Successfully deleted order ${req.params.id}`});
+    } else {
+      res.send({status: 400, message:`Unable to find order ${req.params.id}`});
+    }
+  } catch (e) {
+    console.log(`ERROR: Unable to cancel order : ${e} `);
+    res.send({status: 500, message:'Error: unable to cancel order'})
+  }
+})
+
 
 // Return the homepage if the path is unknown
 app.use((_req, res) => {
