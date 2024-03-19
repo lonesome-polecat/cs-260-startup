@@ -112,7 +112,9 @@ app.get('/config', (_req, res) => {
 
 app.post('/auth/new', async (req, res) => {
   try {
-    if (await db.getUser(req.body.username)) {
+    console.log("REQUEST BODY :")
+    console.log(req.body)
+    if (await db.getUser(req.body.email)) {
       res.send({status: 409, message: 'User already exists'})
     } else {
       const user = await db.createUser(req.body)
@@ -123,8 +125,19 @@ app.post('/auth/new', async (req, res) => {
     }
   } catch (e) {
     console.log(e)
+    res.send({status: 500, message: 'Unable to create new user'})
   }
 })
+/*
+body: {
+  string: firstname,
+  string: lastname,
+  string: username,
+  string: password,
+  string: phone-number
+  string: token
+}
+ */
 
 app.post('/auth/login', async (req, res) => {
   const user = await db.getUser(req.body.username)
@@ -205,8 +218,8 @@ function setAuthCookie(res, token) {
   res.cookie(authCookieName, token, {
     secure: true,
     httpOnly: true,
-    sameSite: 'strict',
-    expires: 1800
+    sameSite: 'strict'
+    //expires: 1800
   })
 }
 

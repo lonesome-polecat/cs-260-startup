@@ -12,32 +12,6 @@ class dbClient {
         this.db = client.db('arizonuts')
     }
 
-    async testConnection() {
-        try {
-            await this.db.command({command: "ping"})
-            return true
-        } catch (e) {
-            console.log(e)
-            return false
-        }
-    }
-
-    // async run() {
-    //     try {
-    //         console.log('Connecting to database sample_airbnb...')
-    //         const database = client.db('sample_airbnb');
-    //         const listings = database.collection('listingsAndReviews');
-    //         // Query for a movie that has the title 'Back to the Future'
-    //         const query = { summary: '' };
-    //         const listing = await listings.findOne(query);
-    //         console.log(listing);
-    //     } finally {
-    //         // Ensures that the client will close when you finish/error
-    //         await client.close();
-    //     }
-    // }
-//run().catch(console.dir);
-
     async insertItem(collection_name, item) {
         try {
             const collection = this.db.collection(collection_name)
@@ -50,7 +24,7 @@ class dbClient {
 
     async getItem(collection_name, pattern) {
         try {
-            const collection = db.collection(collection_name)
+            const collection = this.db.collection(collection_name)
             // If it cannot find the item based on the pattern, it returns null
             let item = await collection.findOne(pattern)
             console.log(item)
@@ -64,28 +38,24 @@ class dbClient {
         return this.getItem('customers', {token: token})
     }
 
-    async getUser(username) {
-        return this.getItem('customers', {username: username})
+    async getUser(email) {
+        return this.getItem('customers', {email: email})
     }
 
     async checkForDuplicate(collection_name, pattern) {
-        try {
-            const collection = db.collection(collection_name)
-            let item = await collection.findOne()
-            if (item === null) {
-                return false
-            } else {
-                return true
-            }
-        } catch (e) {
-            console.log(e)
+        const collection = this.db.collection(collection_name)
+        let item = await collection.findOne(pattern)
+        if (item === null) {
+            return false
+        } else {
+            return true
         }
     }
 
     async createUser(body) {
-        let isDuplicate = await this.checkForDuplicate('customers', {email: body.email})
-        if (isDuplicate) return false
-        let password = bcrypt.hash(body.password, 10)
+        // let isDuplicate = await this.checkForDuplicate('customers', {email: body.email})
+        // if (isDuplicate) return false
+        let password = await bcrypt.hash(body.password, 10)
         const user = {
             first_name: body.first_name,
             last_name: body.last_name,
@@ -94,13 +64,8 @@ class dbClient {
             phone_number: '',
             token: uuid.v4()
         }
-        try {
-            await this.insertItem('customers', user)
-            return user
-        } catch (e) {
-            console.log(e)
-            return false
-        }
+        await this.insertItem('customers', user)
+        return user
     }
 }
 
