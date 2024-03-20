@@ -1,0 +1,22 @@
+{
+  "customer/user": {
+    "first_name": "string",
+    "last_name": "string",
+    "email": "string",
+    "password": "string",
+    "phone_number": "string | ''"
+  },
+  "order": {
+     string: id
+     string: name_on_order
+     string: time
+     string: pickup_time
+     string total_cost
+     object items: [{
+       string: id
+       float: price
+       int: amount
+     }]
+  }
+}
+// availableDaysTimes = [ {date: string, times: string[ format: 24h:mm ] } ]

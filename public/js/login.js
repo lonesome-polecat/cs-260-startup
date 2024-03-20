@@ -1,5 +1,36 @@
 /*
 @Params:
+@Returns:
+Change login form to create user form
+ */
+function displayCreateUser() {
+    let loginContainer = document.getElementById("login-container")
+    let createUserContainer = document.getElementById("create-user-container")
+    loginContainer.style.display = "none";
+    createUserContainer.style.display = "flex";
+}
+/*
+@Params:
+@Returns:
+Change login form to create user form
+ */
+function displayLogin() {
+    let loginContainer = document.getElementById("login-container")
+    let createUserContainer = document.getElementById("create-user-container")
+    createUserContainer.style.display = "none";
+    loginContainer.style.display = "flex";
+}
+/*
+@Params:
+@Returns:
+Verifies user input then creates new user in database
+ */
+async function createUser() {
+    document.getElementById()
+
+}
+/*
+@Params:
 @Returns: void
 Takes login information and checks it for correctness, then calls updateUserName()
  */
