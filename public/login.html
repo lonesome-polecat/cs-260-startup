@@ -58,16 +58,30 @@
       <br>
       <p>Welcome to Arizonuts! Begin your tasty adventure...</p><br>
       <br>
-      <div class="login">
+      <div id="login-container" class="login">
       <h3 style="padding: 20px; color: #555555">Login</h3>
       <form class="login">
-        <input type="text" id="username" value="Username"><br>
-        <input type="password" id="password" value="Password" /><br>
+        <input type="text" id="username" placeholder="Email"><br>
+        <input type="password" id="password" placeholder="Password" /><br>
         <div id="login-buttons-container">
-          <input type="button" id="login-button" value="Sign In" onclick="submitLogin()">
-          <input type="button" id="create-user-button" value="Create Account" onclick="createUser()">
+          <input type="button" class="login-buttons" value="Sign In" onclick="submitLogin()">
+          <input type="button" class="subtle-button" value="Create Account" onclick="displayCreateUser()">
         </div>
       </form>
+      </div>
+      <div id="create-user-container" class="login">
+        <h4 style="text-align: center; padding: 20px; color: #666666">Create a new account</h4>
+        <form class="login">
+          <input type="text" id="new-user-first-name" placeholder="*First name"><br>
+          <input type="text" id="new-user-last-name" placeholder="Last name" /><br>
+          <input type="email" id="new-user-email" placeholder="*Email" /><br>
+          <input type="password" id="new-user-password" placeholder="Password" /><br>
+          <input type="password" id="new-user-confirm-password" placeholder="Confirm Password" /><br>
+          <div id="create-user-buttons-container">
+            <input type="button" class="login-buttons" id="create-user-button" value="Create Account" onclick="createUser()">
+            <input type="button" class="subtle-button" value="Return to Login" onclick="displayLogin()">
+          </div>
+        </form>
       </div>
       <br>
       <a href="https://github.com/lonesome-polecat/startup" target="_blank"><em>GitHub Repo</em></a>
