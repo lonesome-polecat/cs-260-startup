@@ -26,8 +26,59 @@ function displayLogin() {
 Verifies user input then creates new user in database
  */
 async function createUser() {
-    document.getElementById()
+    let newUser = validateInput()
+    if (newUser) {
+        console.log(newUser)
+        let request = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser)}
+        let response = await fetch(`${window.location.origin}/auth/new`, request)
+        response = await response.json()
+        console.log(response)
+        if (response.status === 409) {
+            alert("An account with this email already exists")
+        } else if (response.status === 200) {
+            alert(response.message)
+            window.location.reload()
+        } else {
+            alert("An error occurred")
+        }
+    } else {
+        alert("Invalid input")
+    }
+}
 
+function validateInput() {
+    console.log("validating...")
+    let firstname = document.getElementById("new-user-first-name")
+    // Make sure lastname is valid string
+    if (firstname.value === "") {
+        firstname.style.borderColor = "red";
+        return false;
+    }
+    let lastname = document.getElementById("new-user-last-name")
+    // Make sure lastname is valid string
+    let email = document.getElementById("new-user-email")
+    if (!email.value.includes('@') || !email.value.includes('.')) {
+        email.style.borderColor = "red";
+        return false;
+    }
+    let password = document.getElementById("new-user-password")
+    let confirmPassword = document.getElementById("new-user-confirm-password")
+    if (password.value !== confirmPassword.value) {
+        alert("Passwords do not match")
+        return false;
+    }
+    const newUser = {
+        first_name: firstname.value,
+        last_name: lastname.value,
+        email: email.value,
+        password: password.value
+    }
+    return newUser
 }
 /*
 @Params:
