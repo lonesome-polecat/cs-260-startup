@@ -208,6 +208,7 @@ Databases can be turned on and off, data is persisted
 
 ***Try-Catch Statement***
 - Don't put them in every function - only where there is chance of failure (error)
+- UPDATE: For now, only put try-catch in index.js in request handlers
 
 ***Comments***
 - Put before every function (clarify parameter and return types, basic outline of function)
@@ -216,3 +217,8 @@ Databases can be turned on and off, data is persisted
 Wireshark is a program that grabs all packets transferred across the network, unencrypted traffic not safe
 
 Cookies store session information (authentication, language preference, browsing history, length of stay, etc.)
+
+## UI/Backend Testing
+
+Better processes for testing pages. Programs like Jest, Playwright, Storybook are really efficient
+Playwright for frontend, Jest for backend. Need to figure out how it works.
