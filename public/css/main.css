@@ -131,7 +131,21 @@ button:hover {
     background-color: hotpink;
     cursor: pointer;
 }
-
+#login-buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+#create-user-button {
+    background-color: inherit;
+    color: #666666;
+    font-size: 0.8em;
+    padding: 5px;
+    margin: 10px;
+}
+#create-user-button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
 p {
     font-size: 1em;
     color: #666;

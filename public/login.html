@@ -63,7 +63,10 @@
       <form class="login">
         <input type="text" id="username" value="Username"><br>
         <input type="password" id="password" value="Password" /><br>
-        <input type="button" id="login-button" value="Sign In" onclick="submitLogin()"><br>
+        <div id="login-buttons-container">
+          <input type="button" id="login-button" value="Sign In" onclick="submitLogin()">
+          <input type="button" id="create-user-button" value="Create Account" onclick="createUser()">
+        </div>
       </form>
       </div>
       <br>
