@@ -41,8 +41,8 @@ async function createUser() {
         if (response.status === 409) {
             alert("An account with this email already exists")
         } else if (response.status === 200) {
-            alert(response.message)
             window.location.reload()
+            alert(response.message)
         } else {
             alert("An error occurred")
         }
