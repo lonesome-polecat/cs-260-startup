@@ -222,3 +222,7 @@ Cookies store session information (authentication, language preference, browsing
 
 Better processes for testing pages. Programs like Jest, Playwright, Storybook are really efficient
 Playwright for frontend, Jest for backend. Need to figure out how it works.
+
+TODO: 
+- Need to cleanup unused functions in index.js
+- Need to optimize code in index.js and db layer transactions
