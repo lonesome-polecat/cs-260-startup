@@ -134,3 +134,25 @@ I recently added the following stylistic features to the page
 ### Contact
 
 - Image obtained through Pexels API
+
+
+## Login Deliverable
+
+### New features
+* Live MongoDB to store user accounts and order data
+* Persistent user accounts (ability to create account, login, and logout)
+* Authentication checks for protected transactions
+
+***New Endpoints***
+
+- POST /auth/new - creates new user account in DB
+- POST /auth/login - verifies credentials, creates and store cookie for session
+- DELETE /auth/logout - ends session, deletes cookie
+
+***Protected Endpoints (needs auth)***
+
+- POST /api/order - make a new order
+- GET /api/orders - load history of user orders
+- DELETE /api/orders/:id - cancel/delete a previous order
+
+
