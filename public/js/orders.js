@@ -49,10 +49,10 @@ async function loadOrders() {
     const username = window.localStorage.getItem("username");
     let req = {method: 'GET', headers: {"Content-Type": "application/json"}};
     try {
-        let response = await fetch(`${window.location.origin}/api/orders/${username}`, req)
+        let response = await fetch(`${window.location.origin}/api/orders`, req)
         response = await response.json();
         console.log(response);
-        if (response.order_count === 0) {
+        if (response.orders.length === 0) {
             loadNoOrders()
         } else {
             let table = createTable();
@@ -156,8 +156,11 @@ async function cancelOrder(orderId) {
     try {
         let response = await fetch(`${window.location.origin}/api/order/${orderId}`, req)
         response = await response.json();
-        console.log(response);
-        window.location.reload();
+        if (response.status === 200) {
+            window.location.reload();
+        } else {
+            alert("Error: unable to cancel order")
+        }
     } catch (e) {
         console.log(`There was an error loading orders. ${e}`);
     }

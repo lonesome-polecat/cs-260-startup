@@ -118,9 +118,15 @@ async function submitLogin() {
 @Returns:
 Sets the username in localStorage to null or effectively "logs out" the user
  */
-function logout() {
-    window.localStorage.removeItem("username");
-    // We leave everything else in localStorage for now so we don't lose our order information
+async function logout() {
+    // window.localStorage.removeItem("username");
+    const request = {
+        method: 'DELETE',
+    }
+    let response = await fetch(`${window.location.origin}/auth/logout`, request)
+    response = await response.json()
+    console.log(response)
+    window.localStorage.clear();
     updateUserName();
     window.location.reload();
 }

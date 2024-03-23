@@ -33,7 +33,6 @@ async function Order(order_items) {
     let username = window.localStorage.getItem('username');
     let userOrderCount = window.localStorage.getItem(`${username}-order-count`);
     order.id = username+"_"+userOrderCount;
-    order.name_on_order = username;
     order.time = new Date(Date.now()).toDateString()
     order.pickup_time = document.getElementsByClassName('date-selector')[0].innerText + " " + document.getElementsByClassName('time-selector')[0].innerText
     const init_val = 0;
@@ -42,10 +41,15 @@ async function Order(order_items) {
     )
     order.items = order_items;
     console.log(order);
-    window.localStorage.setItem(`${order.id}`, JSON.stringify(order))
+    // window.localStorage.setItem(`${order.id}`, JSON.stringify(order))
     let req = {method: 'POST', headers: {"Content-Type": "application/json"}, body: JSON.stringify(order)}
     let response = await fetch(`${window.location.origin}/api/order`, req)
     response = await response.json()
+    if (response.status === 200) {
+        alert('You successfully made an order!')
+    } else {
+        alert('Error: something went wrong while making the order')
+    }
     console.log(response)
 }
 
