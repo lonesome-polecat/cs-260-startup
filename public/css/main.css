@@ -120,18 +120,29 @@ main {
 }
 footer {
     background-color: grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 .fa {
-    padding: 20px;
-    font-size: 30px;
-    width: 50px;
+    padding: 5px;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
     text-align: center;
     text-decoration: none;
-    margin: 5px 2px;
+    margin: 5px 0px 5px 12px;
+    border-radius: 10px;
 }
 .fa-facebook {
     background: #3B5998;
     color: white;
+}
+.fa-instagram {
+    color: red;
+    background-color: white;
+    font-size: 34px;
+    padding: 0px;
 }
 button {
     background-color: pink;
