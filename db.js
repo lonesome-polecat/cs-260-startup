@@ -67,7 +67,48 @@ class dbClient {
         await this.insertItem('customers', user)
         return user
     }
+
+    async createOrder(user, order) {
+        let newOrder = {
+            id: order.id,
+            name_on_order: user.first_name + " " + user.last_name,
+            email: user.email,
+            time: order.time,
+            pickup_time: order.pickup_time,
+            items: order.items,
+            total_cost: order.total_cost
+        }
+        await this.insertItem('orders', newOrder)
+    }
+
+    async getOrders(user) {
+        const collection = this.db.collection('orders')
+        // If it cannot find the item based on the pattern, it returns null
+        let cursor = await collection.find({email: user.email})
+        let orders = await cursor.toArray()
+        console.log(orders)
+        return orders
+    }
+
+    async removeToken(token) {
+        const collection = this.db.collection('customers')
+        // If it cannot find the item based on the pattern, it returns null
+        let updateValue = {
+            $set: {
+                token: ''
+            }
+        }
+        let pattern = {token: token}
+        let response = await collection.updateOne(pattern, updateValue)
+        console.log(response)
+    }
+
+    async deleteOrder(user, order_id) {
+        const collection = this.db.collection('orders')
+        return await collection.deleteOne({email: user.email, id: order_id})
+    }
 }
+
 
 
 let order = {

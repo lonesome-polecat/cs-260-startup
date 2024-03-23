@@ -131,15 +131,23 @@ secureApiRouter.use(async (req, res, next) => {
 })
 
 // Needs auth checking
-secureApiRouter.get('/orders/:username', (req, res, next) => {
-  let response = getOrders(req.params.username);
-  res.send(response);
+secureApiRouter.get('/orders', async (req, res, next) => {
+  try {
+    let token = req?.cookies[authCookieName]
+    const user = await db.getUserByToken(token)
+    const orders = await db.getOrders(user)
+    res.send({status: 200, orders: orders})
+  } catch (e) {
+    res.send({status: 400, message: e})
+  }
 });
 
 // Needs auth checking
-apiRouter.post('/order', (req, res) => {
+secureApiRouter.post('/order', async (req, res) => {
   try {
-    createOrder(req);
+    let token = req?.cookies[authCookieName]
+    const user = await db.getUserByToken(token)
+    await db.createOrder(user, req.body)
     res.send({status: 200, message: 'You made an order!'})
   } catch (e) {
     res.send({status: 400, message: e})
@@ -147,9 +155,10 @@ apiRouter.post('/order', (req, res) => {
 })
 
 // Needs auth checking
-apiRouter.delete('/order/:id', (req, res) => {
+secureApiRouter.delete('/order/:id', async (req, res) => {
   try {
-    let success = deleteOrder(req.params.id);
+    let user = await db.getUserByToken(req?.cookies[authCookieName])
+    let success = await db.deleteOrder(user, req.params.id)
     if (success) {
       res.send({status: 200, message:`Successfully deleted order ${req.params.id}`});
     } else {
@@ -161,7 +170,20 @@ apiRouter.delete('/order/:id', (req, res) => {
   }
 })
 
-
+app.delete('/auth/logout', async (req, res) => {
+  try {
+    let token = req?.cookies[authCookieName]
+    if (token) {
+      await db.removeToken(token)
+      res.clearCookie(authCookieName)
+      res.send({status: 200, message: 'Successfully logged out'})
+    } else {
+      res.send({status: 400, message: 'You are already logged out'})
+    }
+  } catch (e) {
+    res.send({status: 400, message: e})
+  }
+});
 // Return the homepage if the path is unknown
 app.use((_req, res) => {
   res.sendFile('./public/index.html', { root: './' });
