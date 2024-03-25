@@ -103,6 +103,17 @@ class dbClient {
         console.log(response)
     }
 
+    async updateToken(user, token) {
+        const collection = this.db.collection('customers')
+        const updateValue = {
+            $set: {
+                token: token
+            }
+        }
+        const response = await collection.updateOne(user, updateValue)
+        console.log(response)
+    }
+
     async deleteOrder(user, order_id) {
         const collection = this.db.collection('orders')
         return await collection.deleteOne({email: user.email, id: order_id})
