@@ -122,6 +122,11 @@ apiRouter.use(secureApiRouter);
 
 secureApiRouter.use(async (req, res, next) => {
   let token = req?.cookies[authCookieName]
+  console.log(token)
+  if (token === null || token === '') {
+    res.send({status: 401, message: 'Unauthorized'})
+    return
+  }
   const user = await db.getUserByToken(token)
   if (user) {
     next()
