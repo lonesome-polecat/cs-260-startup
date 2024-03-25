@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs')
 const bcrypt = require('bcrypt')
+const uuid = require('uuid')
 const cookieParser = require('cookie-parser')
 const { dbClient } = require('./db.js')
 
@@ -101,7 +102,9 @@ app.post('/auth/login', async (req, res) => {
     const user = await db.getUser(req.body.email)
     if (user) {
       if (await bcrypt.compare(req.body.password, user.password)) {
-        setAuthCookie(res, user.token)
+        const token = uuid.v4()
+        await db.updateToken(user, token)
+        setAuthCookie(res, token)
         res.send({status: 200, message: 'successfully logged in', first_name: user.first_name})
         return
       }
