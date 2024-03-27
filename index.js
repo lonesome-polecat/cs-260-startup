@@ -4,9 +4,24 @@ const bcrypt = require('bcrypt')
 const uuid = require('uuid')
 const cookieParser = require('cookie-parser')
 const { dbClient } = require('./db.js')
+const { WebSocketServer } = require('ws')
 
 const db = new dbClient();
 const authCookieName = 'token';
+
+/*** WebSocket ***/
+const wss = new WebSocketServer({ port: 9900 });
+// Have this able to connect only after login (auth)
+wss.on('connection', (ws) => {
+  ws.on('message', (data) => {
+    const msg = String.fromCharCode(...data);
+    console.log('received: %s', msg);
+
+    ws.send(`I heard you say "${msg}"`);
+  });
+
+  ws.send('Hello webSocket');
+});
 
 /*** SERVER ROUTING ***/
 const app = express();
@@ -217,6 +232,7 @@ function createAvailableTimes() {
     dayObj.times = createTimes(day.open_time, day.close_time)
     availableDaysTimes.push(dayObj)
   })
+  console.log(availableDaysTimes)
 }
 
 createAvailableTimes()
@@ -246,6 +262,33 @@ function createTimes(open_time, close_time) {
 function getAvailableDaysTimes() {
   return availableDaysTimes
 }
+
+/* availableDaysTimes
+[
+  {
+    date: '26 April 2024',
+    times: [
+      '12:00', '12:15', '12:30',
+      '12:45', '13:00', '13:15',
+      '13:30', '13:45', '14:00',
+      '14:15', '14:30', '14:45',
+      '15:00', '15:15', '15:30',
+      '15:45'
+    ]
+  },
+  {
+    date: '3 May 2024',
+    times: [
+      '12:00', '12:15',
+      '12:30', '12:45',
+      '13:00', '13:15',
+      '13:30', '13:45',
+      '14:00', '14:15',
+      '14:30', '14:45'
+    ]
+  }
+]
+ */
 
 
 /* Login page */

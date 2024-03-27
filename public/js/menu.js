@@ -147,16 +147,20 @@ function createOrderDialog() {
     let totalCost = document.createElement("p");
     totalCost.classList.add("total-cost");
     totalCost.innerHTML = "Total cost for deliciousness: <em id='total-cost'>$0</em>";
+
     let timeSelection = document.createElement('div')
     timeSelection.classList.add('time-selection-container')
+
     let timeSelectionBanner = document.createElement('p')
     timeSelectionBanner.innerText = 'Pickup Date and Time'
     timeSelectionBanner.classList.add('time-selection-banner')
     timeSelection.appendChild(timeSelectionBanner)
     loadTimePicker(timeSelection);
+
     let confirmBtn = document.createElement("button");
     confirmBtn.innerText = 'Confirm';
     confirmBtn.addEventListener("click", submitOrder);
+
     orderDialog.appendChild(timeSelection);
     orderDialog.appendChild(totalCost);
     orderDialog.appendChild(confirmBtn);
