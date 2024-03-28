@@ -157,3 +157,9 @@ function updateUserName() {
         oldUsername.appendChild(dropdown);
     }
 }
+
+$(document).keypress(function(e){
+    if (e.which == 13){
+        $("#login-button").click();
+    }
+});
