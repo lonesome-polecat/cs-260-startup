@@ -27,7 +27,6 @@ class dbClient {
             const collection = this.db.collection(collection_name)
             // If it cannot find the item based on the pattern, it returns null
             let item = await collection.findOne(pattern)
-            console.log(item)
             return item
         } catch (e) {
             console.log(e)
