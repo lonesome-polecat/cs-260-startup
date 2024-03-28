@@ -157,6 +157,7 @@ button:hover {
 p {
     font-size: 1em;
     color: #666;
+    padding: 0px 10px;
 }
 
 .course {
