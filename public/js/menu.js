@@ -31,8 +31,15 @@ const wsPort = 9900
 const url = `ws://${window.location.hostname}:${wsPort}`
 console.log(url)
 const socket = new WebSocket(url)
+let availableDaysTimes;
 socket.onopen = (event) => {
     console.log('WebSocket is now open')
+}
+socket.onmessage = async (message) => {
+    console.log(message)
+    availableDaysTimes = JSON.parse(message.data)
+    availableDaysTimes = availableDaysTimes.days_and_times
+    console.log(availableDaysTimes)
 }
 socket.onclose = (event) => {
     console.log('WebSocket is now closed')
@@ -44,8 +51,21 @@ async function Order(order_items) {
     let userOrderCount = window.localStorage.getItem(`${username}-order-count`);
     order.id = username+"_"+userOrderCount;
     order.time = new Date(Date.now()).toDateString()
-    order.pickup_time = document.getElementsByClassName('date-selector')[0].innerText + " " + document.getElementsByClassName('time-selector')[0].innerText
-    socket.send(order.pickup_time)
+    let pickupDate = document.getElementsByClassName('date-selector')[0].innerText
+    let pickupTime = document.getElementsByClassName('time-selector')[0].innerText
+    order.pickup_time = pickupDate + " " + pickupTime
+    availableDaysTimes.forEach(date => {
+        if (date.date === pickupDate) {
+            date.times.findIndex((time, i) => {
+                if (time === pickupTime) {
+                    date.times.splice(i, 1)
+                }
+            })
+        }
+    })
+    let timesObj = {days_and_times: availableDaysTimes}
+    timesObj = JSON.stringify(timesObj)
+    socket.send(timesObj)
     const init_val = 0;
     order.total_cost = order_items.reduce((accum, curr) =>
         accum + curr.amount*curr.price, init_val
@@ -179,10 +199,11 @@ function createOrderDialog() {
 
 async function loadTimePicker(timeSelection) {
     // TODO: This function is so messy. Cleanup
-    let response = await fetch(`${window.location.origin}/api/times`, {method: 'GET'})
-    response = await response.json()
-    let days = response.body
+    // let response = await fetch(`${window.location.origin}/api/times`, {method: 'GET'})
+    // response = await response.json()
+    // let days = response.body
 
+    let days = availableDaysTimes
     let rowElement = document.createElement('div')
     rowElement.classList.add('time-selection-row')
 
