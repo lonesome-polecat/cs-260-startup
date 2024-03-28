@@ -104,6 +104,9 @@ li a {
     color: #595959;
     font-size: 18px;
 }
+li a:hover {
+    color: #da9512;
+}
 main {
     display: flex;
     flex-direction: column;
