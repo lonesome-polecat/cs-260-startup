@@ -9,20 +9,6 @@ const { WebSocketServer } = require('ws')
 const db = new dbClient();
 const authCookieName = 'token';
 
-/*** WebSocket ***/
-const wss = new WebSocketServer({ port: 9900 });
-// Have this able to connect only after login (auth)
-wss.on('connection', (ws) => {
-  console.log("We have a connection on port 9900")
-  ws.on('message', (data) => {
-    const msg = String.fromCharCode(...data);
-    console.log('received: %s', msg);
-
-    ws.send(`I heard you say "${msg}"`);
-  });
-
-  ws.send('Hello webSocket');
-});
 
 /*** SERVER ROUTING ***/
 const app = express();
@@ -215,6 +201,59 @@ app.use((_req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+/*** WebSocket ***/
+let connections = [];
+
+const wss = new WebSocketServer({ port: 9900 });
+// Have this able to connect only after login (auth)
+
+wss.on('connection', (ws) => {
+  const connection = { id: connections.length + 1, alive: true, ws: ws };
+  connections.push(connection);
+
+  let timesObj = {days_and_times: availableDaysTimes}
+  timesObj = JSON.stringify(timesObj)
+  ws.send(timesObj)
+
+  // Respond to pong messages by marking the connection alive
+  ws.on('pong', () => {
+    connection.alive = true;
+  });
+
+  // Forward messages to everyone except the sender
+  ws.on('message', function message(data) {
+    availableDaysTimes = JSON.parse(data).days_and_times
+    connections.forEach((c) => {
+      if (c.id !== connection.id) {
+        c.ws.send(data);
+      }
+    });
+  });
+
+  // Remove the closed connection so we don't try to forward anymore
+  ws.on('close', () => {
+    connections.findIndex((o, i) => {
+      if (o.id === connection.id) {
+        connections.splice(i, 1);
+        return true;
+      }
+    });
+  });
+});
+
+setInterval(() => {
+  connections.forEach((c) => {
+    // Kill any connection that didn't respond to the ping last time
+    if (!c.alive) {
+      c.ws.terminate();
+    } else {
+      c.alive = false;
+      c.ws.ping();
+    }
+  });
+}, 10000);
+
 
 /*** BACKEND FUNCTIONS & DATA ***/
 let orders = [];
