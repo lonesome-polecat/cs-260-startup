@@ -27,6 +27,16 @@ let arizonuts = [];
 let timeDrops = {}
 const orderDialog = document.getElementById("order-dialog");
 
+const wsPort = 9900
+const url = `ws://${window.location.hostname}:${wsPort}`
+console.log(url)
+const socket = new WebSocket(url)
+socket.onopen = (event) => {
+    console.log('WebSocket is now open')
+}
+socket.onclose = (event) => {
+    console.log('WebSocket is now closed')
+}
 
 async function Order(order_items) {
     let order = {};
@@ -35,6 +45,7 @@ async function Order(order_items) {
     order.id = username+"_"+userOrderCount;
     order.time = new Date(Date.now()).toDateString()
     order.pickup_time = document.getElementsByClassName('date-selector')[0].innerText + " " + document.getElementsByClassName('time-selector')[0].innerText
+    socket.send(order.pickup_time)
     const init_val = 0;
     order.total_cost = order_items.reduce((accum, curr) =>
         accum + curr.amount*curr.price, init_val

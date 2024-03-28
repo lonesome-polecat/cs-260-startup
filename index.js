@@ -13,6 +13,7 @@ const authCookieName = 'token';
 const wss = new WebSocketServer({ port: 9900 });
 // Have this able to connect only after login (auth)
 wss.on('connection', (ws) => {
+  console.log("We have a connection on port 9900")
   ws.on('message', (data) => {
     const msg = String.fromCharCode(...data);
     console.log('received: %s', msg);
@@ -113,7 +114,6 @@ body: {
 
 app.post('/auth/login', async (req, res) => {
   try {
-    console.log(req.body)
     const user = await db.getUser(req.body.email)
     if (user) {
       if (await bcrypt.compare(req.body.password, user.password)) {
@@ -140,7 +140,6 @@ apiRouter.use(secureApiRouter);
 
 secureApiRouter.use(async (req, res, next) => {
   let token = req?.cookies[authCookieName]
-  console.log(token)
   if (token === null || token === '') {
     res.send({status: 401, message: 'Unauthorized'})
     return
