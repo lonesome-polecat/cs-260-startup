@@ -221,6 +221,7 @@ async function loadTimePicker(timeSelection) {
     let dateDropdown = document.createElement('div')
     dateDropdown.id = 'date-dropdown'
     dateDropdown.style.display = 'none'
+    dateDropdown.addEventListener("focusout", hideDateDropdown)
 
     days.forEach(day => {
         let dateElement = document.createElement('button')
@@ -231,6 +232,7 @@ async function loadTimePicker(timeSelection) {
         timeSelectDropdown.style.display = 'none'
         timeSelectDropdown.id = day.date.replace('/\s/g', '')
         timeSelectDropdown.classList.add('time-dropdown')
+        timeSelectDropdown.addEventListener("focusout", hideTimeDropdown)
 
         day.times.forEach(time => {
             let timeOption = document.createElement('button')
