@@ -162,14 +162,12 @@ p {
     color: #666;
     padding: 0px 10px;
 }
-
 .course {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
-
 .courseName {
     margin: 0.25em;
     font-size: 3em;
@@ -181,7 +179,6 @@ p {
     font-size: 3em;
     color: #da9512;
 }
-
 .small {
     display: none;
     font-size: 30vw;
