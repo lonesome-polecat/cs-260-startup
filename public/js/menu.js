@@ -39,6 +39,7 @@ socket.onmessage = async (message) => {
     console.log(message)
     availableDaysTimes = JSON.parse(message.data)
     availableDaysTimes = availableDaysTimes.days_and_times
+    await loadTimePicker()
     console.log(availableDaysTimes)
 }
 socket.onclose = (event) => {
