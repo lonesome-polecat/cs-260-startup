@@ -155,4 +155,10 @@ I recently added the following stylistic features to the page
 - GET /api/orders - load history of user orders
 - DELETE /api/orders/:id - cancel/delete a previous order
 
+## WebSocket Deliverable
+
+### Menu Page - available pickup times live update
+
+***Feature*** - User is able to select a time to pickup their order
+***WebSocket*** - When a user submits an order with a selected pickup time, that option is removed for all other users in real-time
 
