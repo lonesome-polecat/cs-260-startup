@@ -1,4 +1,5 @@
 .idea
 pushToProd.sh
-node_modules/*
+node_modules
 dbConfig.json
+package-lock.json
