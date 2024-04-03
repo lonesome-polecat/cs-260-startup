@@ -3,3 +3,5 @@ pushToProd.sh
 node_modules
 dbConfig.json
 package-lock.json
+vite.config.js
+demoVite
