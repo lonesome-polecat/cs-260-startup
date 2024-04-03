@@ -1,0 +1,133 @@
+@font-face {
+    font-family: Pacifico;
+    src: url("../fonts/Pacifico-Regular.ttf")
+}
+main.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#menu-container {
+    padding: 10px;
+    align-content: center;
+    display: inline-block;
+}
+div.order {
+    align-content: center;
+}
+.menu-option {
+    display: inline-block;
+    padding: 10px;
+    border: solid 0px darkgreen;
+    align-content: center;
+}
+.menu-option-title {
+    font-family: "Pacifico";
+    font-size: 24px;
+    text-align: center;
+    padding: 10px;
+}
+.menu-option-img {
+    width: 300px;
+    height: 300px;
+}
+.menu-option-count {
+
+}
+#make-order {
+    padding: 10px;
+}
+#order-dialog {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    background-color: #ffeeee;
+    border: 0;
+    border-radius: 10px;
+    overflow: visible;
+}
+#order-dialog-header {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.close-button {
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: #666666;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: large;
+}
+.topright {
+    position: absolute;
+    right: 0;
+    top: 0
+}
+.order-dialog-option-container {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+.amount-input {
+    display: block;
+    max-width: 3em;
+    max-height: 2.5em;
+}
+.total-cost {
+    font-style: italic;
+    padding: 20px 0px 20px 0px;
+}
+.date-selector, .time-selector {
+    padding: 10px;
+    background-color: inherit;
+    color: #666666;
+    font-family: Merriweather Sans;
+}
+.date-selector:hover, .time-selector:hover {
+    background-color: #ffdddd;
+}
+.date-selector, .time-selector {
+    position: relative;
+    display: inline-block;
+}
+#date-dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    text-align: center;
+}
+.time-dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    text-align: center;
+}
+.time-option {
+    position: relative;
+    border: 0px;
+}
+.time-selection-banner {
+    padding-top: 20px;
+}
