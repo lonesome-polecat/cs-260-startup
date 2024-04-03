@@ -39,7 +39,9 @@ socket.onmessage = async (message) => {
     console.log(message)
     availableDaysTimes = JSON.parse(message.data)
     availableDaysTimes = availableDaysTimes.days_and_times
-    await loadTimePicker()
+    let rowElement = document.getElementsByClassName('time-selection-row')[0]
+    rowElement.innerHTML = ''
+    await loadTimePicker(rowElement)
     console.log(availableDaysTimes)
 }
 socket.onclose = (event) => {
@@ -95,7 +97,7 @@ async function loadMenu() {
     })
     createMenuOptions();
     createOrderDialog();
-    await updateOrderCount();
+    // await updateOrderCount();
 
     $("main.menu").fadeIn();
     $("footer").fadeIn();
@@ -129,13 +131,13 @@ function createMenuOptions() {
         // if (window.localStorage.getItem(`${arizonut.id}-total-order-count`) === null) {
         //     window.localStorage.setItem(`${arizonut.id}-total-order-count`, 0);
         // }
-        let orderCount = document.createElement("p");
-        orderCount.classList.add('menu-option-count');
-        orderCount.innerHTML = `Order Count: <em id="${arizonut.id}-total-order-count"><em>`;
+        // let orderCount = document.createElement("p");
+        // orderCount.classList.add('menu-option-count');
+        // orderCount.innerHTML = `Order Count: <em id="${arizonut.id}-total-order-count"><em>`;
         // Append all to option container
         option.appendChild(title);
         option.appendChild(img);
-        option.appendChild(orderCount);
+        // option.appendChild(orderCount);
         // Append option to main menu container
         menu.appendChild(option);
     })
@@ -187,7 +189,10 @@ function createOrderDialog() {
     timeSelectionBanner.innerText = 'Pickup Date and Time'
     timeSelectionBanner.classList.add('time-selection-banner')
     timeSelection.appendChild(timeSelectionBanner)
-    loadTimePicker(timeSelection);
+    let rowElement = document.createElement('div')
+    rowElement.classList.add('time-selection-row')
+    timeSelection.appendChild(rowElement)
+    loadTimePicker(rowElement);
 
     let confirmBtn = document.createElement("button");
     confirmBtn.innerText = 'Confirm';
@@ -198,15 +203,13 @@ function createOrderDialog() {
     orderDialog.appendChild(confirmBtn);
 }
 
-async function loadTimePicker(timeSelection) {
+async function loadTimePicker(rowElement) {
     // TODO: This function is so messy. Cleanup
     // let response = await fetch(`${window.location.origin}/api/times`, {method: 'GET'})
     // response = await response.json()
     // let days = response.body
 
     let days = availableDaysTimes
-    let rowElement = document.createElement('div')
-    rowElement.classList.add('time-selection-row')
 
     let dateSelector = document.createElement('button')
     dateSelector.classList.add('date-selector')
@@ -251,7 +254,6 @@ async function loadTimePicker(timeSelection) {
     timeSelector.innerText = days[0].times[0]
 
     rowElement.appendChild(dateDropdown)
-    timeSelection.appendChild(rowElement)
 }
 
 function showDateDropdown() {
@@ -316,17 +318,17 @@ function makeOrder() {
 function closeDialog() {
     orderDialog.style.display = "none";
     orderDialog.close();
-    updateOrderCount();
+    // updateOrderCount();
 }
 
-async function updateOrderCount() {
-    let response = await fetch(`${window.location.origin}/api/order/count`)
-    response = await response.json()
-    arizonuts.forEach(arizonut => {
-        let order_count = document.getElementById(`${arizonut.id}-total-order-count`)
-        order_count.innerText = response.count[arizonut.id]
-    })
-}
+// async function updateOrderCount() {
+//     let response = await fetch(`${window.location.origin}/api/order/count`)
+//     response = await response.json()
+//     arizonuts.forEach(arizonut => {
+//         let order_count = document.getElementById(`${arizonut.id}-total-order-count`)
+//         order_count.innerText = response.count[arizonut.id]
+//     })
+// }
 /*
 @Params: void
 @Returns: void

@@ -50,10 +50,10 @@ apiRouter.get('/times', (req, res) => {
   }
 })
 
-apiRouter.get('/order/count', (req, res, next) => {
-  let counts = getOrderCount();
-  res.send({status: 200, count: counts});
-});
+// apiRouter.get('/order/count', (req, res, next) => {
+//   let counts = getOrderCount();
+//   res.send({status: 200, count: counts});
+// });
 
 apiRouter.get('/menu', (req, res) => {
   try {
@@ -223,11 +223,15 @@ wss.on('connection', (ws) => {
 
   // Forward messages to everyone except the sender
   ws.on('message', function message(data) {
-    availableDaysTimes = JSON.parse(data).days_and_times
+    const msg = String.fromCharCode(...data);
+    availableDaysTimes = JSON.parse(msg).days_and_times
+    let timesObj = {days_and_times: availableDaysTimes}
+    console.log(timesObj)
+    timesObj = JSON.stringify(timesObj)
+    console.log(`connection_id = ${connection.id}`)
     connections.forEach((c) => {
-      if (c.id !== connection.id) {
-        c.ws.send(data);
-      }
+      console.log("sending...")
+      c.ws.send(timesObj)
     });
   });
 
@@ -252,12 +256,12 @@ setInterval(() => {
       c.ws.ping();
     }
   });
-}, 10000);
+}, 100000);
 
 
 /*** BACKEND FUNCTIONS & DATA ***/
 let orders = [];
-let orderCount = {};
+// let orderCount = {};
 let availableDaysTimes = [];
 // availableDaysTimes = [ {date: string, times: string[ format: 24h:mm ] } ]
 
@@ -351,12 +355,12 @@ function userLogout() {
 function getMenu() {
   console.log('Getting menu...')
   let response = JSON.parse(fs.readFileSync('./menu.json'))
-  response.menu_items.forEach(item => {
-    if (orderCount[item.id] === undefined) {
-      console.log('order id is undefined')
-      orderCount[item.id] = 0
-    }
-  })
+  // response.menu_items.forEach(item => {
+  //   if (orderCount[item.id] === undefined) {
+  //     console.log('order id is undefined')
+  //     orderCount[item.id] = 0
+  //   }
+  // })
   return response;
 }
 
@@ -365,10 +369,10 @@ function createOrder(req) {
   console.log("Creating new order from request")
   console.log(req.body)
   orders.push(req.body)
-  req.body.items.forEach(item => {
-    console.log(item.amount)
-    orderCount[item.id] += item.amount
-  })
+  // req.body.items.forEach(item => {
+  //   console.log(item.amount)
+  //   orderCount[item.id] += item.amount
+  // })
   console.log(`Number of orders: ${orders.length}`)
   return true;
 }
@@ -386,9 +390,9 @@ function createOrder(req) {
 // }
 
 // method: GET
-function getOrderCount() {
-  return orderCount;
-}
+// function getOrderCount() {
+//   return orderCount;
+// }
 
 /* Orders Page */
 // method: GET
