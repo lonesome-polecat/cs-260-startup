@@ -226,3 +226,30 @@ Playwright for frontend, Jest for backend. Need to figure out how it works.
 TODO: 
 - Need to cleanup unused functions in index.js
 - Need to optimize code in index.js and db layer transactions
+
+## Performance
+
+- If you have things cached on your machine, things will load faster. You need to clear the cache and see what it looks like the first time it loads
+- Optimize - there are slides for this, checkout Google Lighthouse, pingdom.com, dotcom-tools.com
+
+## UX
+
+- "Don't make me think" ~Steve Krug (UX Guru)
+- Lycos vs. Google
+- You know instantly what you are supposed to do - no effort on your brain
+- Design as a story (it's about the journey as much as the destination)
+- Consistency
+- Look at slides for holy grail of website layout
+- Sitemap - draw out nav model from page to page, consider what the user will want to do from each page
+- Move "Orders" into profile dropdown
+- paletton.com, color.adobe.com - really good for finding a color palette
+- Primary, Secondary, Focus colors
+- Documentary about a font "Helvetica"
+- The less fonts is better
+- Typically sans serif for headers and serif for content (because we're used to that in books and flowing content)
+- Whitespace has power
+- Images must add values
+- Decision fatigue - The time necessary to make a decision increases logarithmically with the number of options
+- Device responsiveness
+- Accessibility
+- Walls - do not introduce walls in your application if you can help it, is the user willing to work through that wall? (Like making an account)
