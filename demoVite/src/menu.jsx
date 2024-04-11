@@ -34,7 +34,8 @@ export function Menu() {
                     return(
                         <div className={"order-dialog-option-container"}>
                             <h3 className={"menu-option-title"} style={az.style}>{az.name}</h3>
-                            {/*<input id={`${az.id}-order-amount`} className={"amount-input"} type={"number"} value={0} min={0} step={1} onChange={(e) => {e.preventDefault(); e.target.value += 1}} />*/}
+                            {/* This is breaking things*/}
+                            {/*<input id={`${az.id}-order-amount`} className={"amount-input"} type={"number"} defaultValue="0" min="0" step="0" onChange={(e) => {e.preventDefault(); e.target.value += 1}} />*/}
                         </div>
                     )
                 })}
