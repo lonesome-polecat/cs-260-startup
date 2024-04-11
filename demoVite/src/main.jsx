@@ -6,5 +6,7 @@ import './css/login.css'
 import './css/menu.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <App />
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
 )
