@@ -15,9 +15,9 @@ export function Login() {
             <p>Welcome to Arizonuts! Begin your tasty adventure...</p>
             <br />
             {card === 'login' ? (
-                <LoginCard changeCard={changeCard}/>
+                <LoginCard changeCard={changeCard} />
             ) : (
-                <CreateUserCard changeCard={changeCard}/>
+                <CreateUserCard changeCard={changeCard} />
             )}
             <br />
             <a href="https://github.com/lonesome-polecat/startup" target="_blank"><em>GitHub Repo</em></a>

@@ -1,12 +1,12 @@
 import React from 'react'
-import { useData, importImg } from './fetch.jsx'
+import { useFetch, importImg } from './fetch.jsx'
 import Image from './Image.jsx'
 import OrderDialog from './OrderDialog.jsx'
 
 export function Menu() {
     let [showDialog, setDialogDisplay] = React.useState(false)
     let [loading, setLoading] = React.useState(true)
-    let menuData = useData('/api/menu', setLoading)
+    let menuData = useFetch('/api/menu', {}, setLoading)
 
     function buttonClickHandler(event) {
         setDialogDisplay(!showDialog)
