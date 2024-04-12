@@ -15,6 +15,7 @@ export function Home() {
                 <img className="img-row" alt="donuts2" src={pic2} />
                 <img className="img-row" alt="donuts3" src={pic3}/>
             </div>
+            <br />
             <a href="https://github.com/lonesome-polecat/startup" target="_blank"><em>GitHub Repo</em></a>
         </main>
     )

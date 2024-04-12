@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function LoginCard() {
+export function LoginCard(props) {
     return(
         <div id="login-container" className="login">
             <h3 style={{padding: '20px', color: '#555555'}}>Login</h3>
@@ -11,7 +11,7 @@ export function LoginCard() {
                     <input type="button" id='login-button' className="login-buttons" value="Sign In"
                                onClick="submitLogin()" />
                     <input type="button" className="subtle-button" value="Create Account"
-                               onClick="displayCreateUser()" />
+                               onClick={props.changeCard} />
                 </div>
             </form>
         </div>
