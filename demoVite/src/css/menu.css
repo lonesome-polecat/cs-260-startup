@@ -39,6 +39,7 @@ div.order {
     padding: 10px;
 }
 #order-dialog {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
