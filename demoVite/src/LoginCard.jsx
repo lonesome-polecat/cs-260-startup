@@ -1,10 +1,12 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import {useFetch, handleSubmit} from "./fetch.jsx";
 
 export function LoginCard(props) {
     let [loading, setLoading] = React.useState(true)
     let [req, setReq] = React.useState({})
     const apiResponse = useFetch('http://localhost:4000/auth/login', req, setLoading)
+    const navigate = useNavigate()
 
     function submitHandler(event) {
         event.preventDefault()
@@ -21,6 +23,18 @@ export function LoginCard(props) {
                 password: loginForm.password.value,
             })
         })
+    }
+
+    function handleAuthResponse() {
+        if (apiResponse.status === 200) {
+            window.localStorage.setItem('username', apiResponse.first_name)
+            props.changeAuthentication()
+            setLoading(true)
+            navigate('/index')
+        } else {
+            setLoading(true)
+            alert('Invalid credentials')
+        }
     }
 
     return(
@@ -40,7 +54,7 @@ export function LoginCard(props) {
                 <div></div>
             ) : (
                 <div>
-                    {console.log(apiResponse)}
+                    {handleAuthResponse()}
                 </div>
             )}
         </div>
