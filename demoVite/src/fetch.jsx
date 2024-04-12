@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-export function useData(url, setLoading) {
+export function useFetch(url, options, setLoading) {
     const [data, setData] = useState(null);
     console.log("now in useData")
     useEffect(() => {
         if (url) {
             let ignore = false;
-            fetch(url)
+            fetch(url, options)
                 .then(response => response.json())
                 .then(json => {
                     if (!ignore) {
@@ -18,7 +18,7 @@ export function useData(url, setLoading) {
                 ignore = true;
             };
         }
-    }, [url, setLoading]);
+    }, [url, options, setLoading]);
     return data;
 }
 
@@ -44,4 +44,21 @@ export function importImg(path) {
         }
     }, [path]);
     return data;
+}
+
+export function handleSubmit(props) {
+    props.event.preventDefault()
+
+    props.apiResponse = useFetch(props.url, req, setLoading)
+
+    return(
+        <div>
+            {apiResponse ? (
+                <div>{
+                    props.handleResponse(apiResponse)
+                }</div>) : (
+                <div></div>
+            )}
+        </div>
+    )
 }

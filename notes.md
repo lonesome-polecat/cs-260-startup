@@ -253,3 +253,10 @@ TODO:
 - Device responsiveness
 - Accessibility
 - Walls - do not introduce walls in your application if you can help it, is the user willing to work through that wall? (Like making an account)
+
+## PWA
+
+- Super awesome
+- whatapwacando.com
+
+![img.png](img.png)
