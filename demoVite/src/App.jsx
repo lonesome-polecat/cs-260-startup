@@ -3,7 +3,7 @@ import './css/main.css'
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import React from 'react'
 import {Home} from "./home"
-import {Login} from "./login.jsx";
+import {Login, Username} from "./login.jsx";
 import {Menu} from "./menu"
 import {Orders} from "./orders"
 import {Contact} from "./contact"
@@ -11,19 +11,18 @@ import {Contact} from "./contact"
 function App() {
     let [isAuthenticated, setAuthenticated] = React.useState(false)
 
+    function changeAuthentication() {
+        setAuthenticated(!isAuthenticated)
+    }
+
     return (
         <BrowserRouter>
-
             <header>
                 <div className={"head"}>
                     <div>
                         <h2 className="pageTitle">Arizonuts</h2>
                     </div>
-                    <div className="displayUser">
-                        {isAuthenticated ? (<p>Username</p>) : (
-                            <NavLink to='login'>Login</NavLink>
-                        )}
-                    </div>
+                    <Username isAuthenticated={isAuthenticated} changeAuthentication={changeAuthentication}/>
                 </div>
                 <nav>
                     <div>
@@ -70,7 +69,7 @@ function App() {
                     exact
                 />
                 <Route path='/index' element={<Home />} />
-                <Route path='/login' element={<Login />} />
+                <Route path='/login' element={<Login changeAuthentication={changeAuthentication}/>} />
                 <Route path='/menu' element={<Menu />} />
                 <Route path='/orders' element={<Orders />} />
                 <Route path='/contact' element={<Contact />} />
