@@ -7,7 +7,9 @@ export function Home() {
 
     return(
         <main>
+            <br />
             <p>Welcome to Arizonuts! Begin your tasty adventure...</p>
+            <br />
             <div className="img-row-container">
                 <img className="img-row" alt="donuts1" src={pic1} />
                 <img className="img-row" alt="donuts2" src={pic2} />

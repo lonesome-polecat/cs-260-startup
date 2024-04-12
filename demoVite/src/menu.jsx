@@ -17,6 +17,7 @@ export function Menu() {
            {loading ? (<p>Loading menu...</p>) : (
                <div>
                    <OrderDialog showDialog={showDialog} setDialogDisplay={setDialogDisplay} menuItems={menuData.menu_items}/>
+                   <br />
                    <p style={{textAlign: "center"}}>Our weekly pics!</p>
                    <div id="menu-container">
                        {menuData.menu_items.map(az => {
@@ -28,7 +29,7 @@ export function Menu() {
                            )
                        })}
                    </div>
-                   <div>
+                   <div id="make-order-button-container">
                        <button id="make-order" onClick={buttonClickHandler}>Order Now</button>
                    </div>
                </div>
