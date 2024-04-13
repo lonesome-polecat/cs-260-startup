@@ -30,7 +30,7 @@ export function Login(props) {
 export function Username(props) {
     let [loading, setLoading] = React.useState(true)
     let [req, setReq] = React.useState({})
-    const apiResponse = useMountedFetch('http://localhost:4000/auth/logout', req, setLoading)
+    const apiResponse = useMountedFetch('/auth/logout', req, setLoading)
 
     function logout(event) {
         setReq({method: 'DELETE'})
