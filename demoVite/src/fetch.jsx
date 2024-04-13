@@ -23,6 +23,28 @@ export function useMountedFetch(url, options, setLoading) {
     return data;
 }
 
+export function fetchTimes(url, options, setLoading) {
+    const [data, setData] = useState(null);
+    console.log("now in useData")
+    useEffect(() => {
+        if (url) {
+            let ignore = false;
+            fetch(url, options)
+                .then(response => response.json())
+                .then(json => {
+                    if (!ignore) {
+                        console.log(json)
+                        setData(json);
+                        setLoading(false)
+                    }
+                });
+            return () => {
+                ignore = true;
+            };
+        }
+    }, []);
+    return data;
+}
 export function useActionFetch(url, options, setLoading) {
     const [data, setData] = useState(null);
     console.log("now in useData")
