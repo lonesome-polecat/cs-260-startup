@@ -1,11 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import {useFetch, handleSubmit} from "./fetch.jsx";
+import {useMountedFetch, useActionFetch, handleSubmit} from "./fetch.jsx";
 
 export function LoginCard(props) {
     let [loading, setLoading] = React.useState(true)
     let [req, setReq] = React.useState({})
-    const apiResponse = useFetch('http://localhost:4000/auth/login', req, setLoading)
+    const apiResponse = useActionFetch('http://localhost:4000/auth/login', req, setLoading)
     const navigate = useNavigate()
 
     function submitHandler(event) {

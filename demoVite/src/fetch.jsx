@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-export function useFetch(url, options, setLoading) {
+
+export function useMountedFetch(url, options, setLoading) {
     const [data, setData] = useState(null);
     console.log("now in useData")
     useEffect(() => {
@@ -18,10 +19,32 @@ export function useFetch(url, options, setLoading) {
                 ignore = true;
             };
         }
-    }, [url, options, setLoading]);
+    }, []);
     return data;
 }
 
+export function useActionFetch(url, options, setLoading) {
+    const [data, setData] = useState(null);
+    console.log("now in useData")
+    useEffect(() => {
+        if (url) {
+            let ignore = false;
+            fetch(url, options)
+                .then(response => response.json())
+                .then(json => {
+                    if (!ignore) {
+                        console.log(json)
+                        setData(json);
+                        setLoading(false)
+                    }
+                });
+            return () => {
+                ignore = true;
+            };
+        }
+    }, [options]);
+    return data;
+}
 export function importImg(path) {
     const IMG_PATH = './img/'
     const [data, setData] = useState('');
@@ -42,14 +65,14 @@ export function importImg(path) {
                 ignore = true;
             };
         }
-    }, [path]);
+    }, []);
     return data;
 }
 
 export function handleSubmit(props) {
     props.event.preventDefault()
 
-    props.apiResponse = useFetch(props.url, req, setLoading)
+    props.apiResponse = useMountedFetch(props.url, req, setLoading)
 
     return(
         <div>
