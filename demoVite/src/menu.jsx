@@ -1,12 +1,12 @@
 import React from 'react'
-import { useFetch, importImg } from './fetch.jsx'
+import { useMountedFetch, importImg } from './fetch.jsx'
 import Image from './Image.jsx'
 import OrderDialog from './OrderDialog.jsx'
 
 export function Menu() {
     let [showDialog, setDialogDisplay] = React.useState(false)
     let [loading, setLoading] = React.useState(true)
-    let menuData = useFetch('/api/menu', {}, setLoading)
+    let menuData = useMountedFetch('/api/menu', {headers: {'Content-Type': 'application/json'}}, setLoading)
 
     function buttonClickHandler(event) {
         setDialogDisplay(!showDialog)

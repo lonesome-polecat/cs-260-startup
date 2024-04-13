@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import {LoginCard} from "./LoginCard.jsx";
 import {CreateUserCard} from "./CreateUserCard.jsx";
-import {useFetch} from "./fetch.jsx";
+import {useMountedFetch} from "./fetch.jsx";
 
 export function Login(props) {
     let [card, setCard] = React.useState('login')
@@ -28,8 +28,9 @@ export function Login(props) {
 }
 
 export function Username(props) {
+    let [loading, setLoading] = React.useState(true)
     let [req, setReq] = React.useState({})
-    const apiResponse = useFetch('http://localhost:4000/auth/logout', req, (nll) => {})
+    const apiResponse = useMountedFetch('http://localhost:4000/auth/logout', req, setLoading)
 
     function logout(event) {
         setReq({method: 'DELETE'})

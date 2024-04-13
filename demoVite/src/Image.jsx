@@ -5,6 +5,10 @@ export default function Image(props) {
     const image = importImg(props.path)
 
     return(
-        <img src={image} alt={props.alt} width={props.width} height={props.height} />
+        <>
+            {image !== '' &&
+                <img src={image} alt={props.alt} width={props.width} height={props.height} />
+            }
+        </>
     )
 }
