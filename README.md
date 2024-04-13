@@ -162,3 +162,16 @@ I recently added the following stylistic features to the page
 ***Feature*** - User is able to select a time to pickup their order
 ***WebSocket*** - When a user submits an order with a selected pickup time, that option is removed for all other users in real-time
 
+## React Deliverable
+
+***New developments***
+- Bundled using Vite
+- Created functional navbar with a React router
+- Login is a functional component (but create user no longer works)
+- Logout is functional (but you have to have a login already because ^^^)
+- The Menu page is loaded dynamically using a custom hook (images no longer load in production)
+- The order dialog on the Menu page is a functional component that loads data from the websocket (which no longer works)
+- Orders page is empty
+- Contact page is empty
+- React blows
+
