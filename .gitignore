@@ -12,12 +12,6 @@ dist
 dist-ssr
 *.local
 dbConfig.json
-service/dbConfig.json
-service/package-lock.json
-package-lock.json
-vite.config.js
-.idea
-pushToProd.sh
 
 # Editor directories and files
 .vscode/*
@@ -29,4 +23,3 @@ pushToProd.sh
 *.njsproj
 *.sln
 *.sw?
-/node_modules/
