@@ -18,6 +18,8 @@ export function Times(props) {
         };
     }, []);
 
+    // This will reload when these change. I will need an alert message to go off if someone else made an order to let the user know that some times have just been taken
+    // Or I can add in the conditional && selectedDate == null
     React.useEffect(() => {
         if (availableTimes) {
             setSelectedDate(availableTimes.days_and_times[0].date)
