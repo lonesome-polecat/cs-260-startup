@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 dbConfig.json
+service/dbConfig.json
+service/node_modules
 
 # Editor directories and files
 .vscode/*
