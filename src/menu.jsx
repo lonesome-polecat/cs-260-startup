@@ -2,8 +2,9 @@ import React from 'react'
 import { useMountedFetch, importImg } from './fetch.jsx'
 import Image from './Image.jsx'
 import OrderDialog from './OrderDialog.jsx'
+import './css/menu.css'
 
-export function Menu() {
+export function Menu(props) {
     let [showDialog, setDialogDisplay] = React.useState(false)
     let [loading, setLoading] = React.useState(true)
     let menuData = useMountedFetch('/api/menu', {headers: {'Content-Type': 'application/json'}}, setLoading)

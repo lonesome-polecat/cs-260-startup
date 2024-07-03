@@ -126,8 +126,19 @@ app.post('/auth/login', async (req, res) => {
   }
 })
 
-app.get('/auth/me', (req, res) => {
+app.get('/auth/me', async (req, res) => {
   // Use cookie to return info about user
+  let token = req?.cookies[authCookieName]
+  if (token === null || token === '') {
+    res.send({status: 404, message: 'Not logged in'})
+    return
+  }
+  const user = await db.getUserByToken(token)
+  if (user) {
+    res.send({status: 200, username: user.first_name})
+  } else {
+    res.send({status: 400, message: 'Bad request'})
+  }
 })
 
 let secureApiRouter = express.Router();
@@ -275,7 +286,7 @@ let availableDaysTimes = [];
 // availableDaysTimes = [ {date: string, times: string[ format: 24h:mm ] } ]
 
 function createAvailableTimes() {
-  let jsonfile = JSON.parse(fs.readFileSync('./available_times.json'))
+  let jsonfile = JSON.parse(fs.readFileSync('./service/available_times.json'))
   let workDays = jsonfile.work_days
   workDays.forEach(day => {
     let dayObj = {}
@@ -314,33 +325,6 @@ function getAvailableDaysTimes() {
   return availableDaysTimes
 }
 
-/* availableDaysTimes
-[
-  {
-    date: '26 April 2024',
-    times: [
-      '12:00', '12:15', '12:30',
-      '12:45', '13:00', '13:15',
-      '13:30', '13:45', '14:00',
-      '14:15', '14:30', '14:45',
-      '15:00', '15:15', '15:30',
-      '15:45'
-    ]
-  },
-  {
-    date: '3 May 2024',
-    times: [
-      '12:00', '12:15',
-      '12:30', '12:45',
-      '13:00', '13:15',
-      '13:30', '13:45',
-      '14:00', '14:15',
-      '14:30', '14:45'
-    ]
-  }
-]
- */
-
 
 /* Login page */
 // method: POST
@@ -363,7 +347,7 @@ function userLogout() {
 // method: GET
 function getMenu() {
   console.log('Getting menu...')
-  let response = JSON.parse(fs.readFileSync('./menu.json'))
+  let response = JSON.parse(fs.readFileSync('./service/menu.json'))
   // response.menu_items.forEach(item => {
   //   if (orderCount[item.id] === undefined) {
   //     console.log('order id is undefined')
