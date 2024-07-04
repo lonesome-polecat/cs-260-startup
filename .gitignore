@@ -15,6 +15,7 @@ dbConfig.json
 service/dbConfig.json
 service/node_modules
 service/public
+package-lock.json
 
 # Editor directories and files
 .vscode/*
