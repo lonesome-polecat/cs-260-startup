@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 export function useMountedFetch(url, options, setLoading) {
     const [data, setData] = useState(null);
@@ -67,12 +67,12 @@ export function useActionFetch(url, options, setLoading) {
     }, [options]);
     return data;
 }
-export function importImg(path) {
+export function importImg(path, setLoading) {
     const IMG_PATH = './img/'
     const [data, setData] = useState('');
     console.log("now in importImg")
     console.log(path)
-    useEffect(() => {
+    useMemo(() => {
         if (path) {
             let ignore = false;
             import(IMG_PATH + path)
@@ -81,6 +81,7 @@ export function importImg(path) {
                     if (!ignore) {
                         console.log(img)
                         setData(img);
+                        setLoading(false)
                     }
                 });
             return () => {
