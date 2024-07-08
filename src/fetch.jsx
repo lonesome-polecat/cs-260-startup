@@ -68,7 +68,7 @@ export function useActionFetch(url, options, setLoading) {
     return data;
 }
 export function importImg(path, setLoading) {
-    const IMG_PATH = import.meta.env.MODE === "production" ? '../img/' : './img/'
+    const IMG_PATH = './img/'
     const [data, setData] = useState('');
     console.log("now in importImg")
     console.log(path)
@@ -81,6 +81,13 @@ export function importImg(path, setLoading) {
                     if (!ignore) {
                         console.log(img)
                         setData(img);
+                        setLoading(false)
+                    }
+                }).catch(error => {
+                    if (!ignore) {
+                        console.log(error)
+                        // most likely due to the browser not able to import images
+                        setData('../img/' + path)
                         setLoading(false)
                     }
                 });
