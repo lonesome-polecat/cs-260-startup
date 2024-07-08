@@ -68,7 +68,7 @@ export function useActionFetch(url, options, setLoading) {
     return data;
 }
 export function importImg(path, setLoading) {
-    const IMG_PATH = './img/'
+    const IMG_PATH = import.meta.env.MODE === "production" ? '../img/' : './img/'
     const [data, setData] = useState('');
     console.log("now in importImg")
     console.log(path)
