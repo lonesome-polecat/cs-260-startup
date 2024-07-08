@@ -25,6 +25,10 @@ export default defineConfig({
         target: 'ws://localhost:4000',
         ws: true,
       },
+      '/wss': {
+        target: 'wss://localhost:4000',
+        ws: true,
+      }
     },
   }
 })
