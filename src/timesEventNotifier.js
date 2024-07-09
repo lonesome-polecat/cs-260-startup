@@ -6,8 +6,7 @@ class timesEventNotifier {
     constructor() {
         let port = 9900;
         const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-        this.socket = new WebSocket(`${protocol}://localhost:${port}/ws`);
-        // this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
+        this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
         this.socket.onopen = (event) => {
             console.log("Connected the socket!")
         };
