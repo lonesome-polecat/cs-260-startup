@@ -17,7 +17,7 @@ export function Login(props) {
             <p>Welcome to Arizonuts! Begin your tasty adventure...</p>
             <br />
             {card === 'login' ? (
-                <LoginCard changeAuthentication={props.changeAuthentication} changeCard={changeCard} />
+                <LoginCard changeCard={changeCard} />
             ) : (
                 <CreateUserCard changeCard={changeCard} />
             )}
@@ -28,15 +28,17 @@ export function Login(props) {
 }
 
 export function Username(props) {
-    let [loading, setLoading] = React.useState(true)
-    let [req, setReq] = React.useState({})
-    const apiResponse = useMountedFetch('/auth/logout', req, setLoading)
 
     function logout(event) {
-        setReq({method: 'DELETE'})
-        window.localStorage.removeItem('username')
-        props.changeAuthentication()
-        window.location.reload()
+        const req = {method: 'DELETE'}
+        const response = fetch('/auth/logout', req).then(res => res.json()).then(res => {
+            if (res.status === 200) {
+                window.localStorage.removeItem('username')
+                window.location.reload()
+            } else {
+                alert("Error: unable to log out")
+            }
+        })
     }
 
     return(
