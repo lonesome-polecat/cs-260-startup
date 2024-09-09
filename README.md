@@ -24,32 +24,32 @@ Our website includes the following features:
 
 ### Login
 
-![Login Page](public/img/arizonuts_login.jpg)
+![Login Page](src/img/arizonuts_login.jpg)
 
 
 ### Home
 
-![Home Page design image](public/img/arizonuts_home.jpg)
+![Home Page design image](src/img/arizonuts_home.jpg)
 
 
 ### Menu
 
-![Menu Page](public/img/arizonuts_menu.jpg)
+![Menu Page](src/img/arizonuts_menu.jpg)
 
 
 ### Order Confirmation Dialog
 
-![Order Confirmation dialog window](public/img/arizonuts_order_dialog.jpg)
+![Order Confirmation dialog window](src/img/arizonuts_order_dialog.jpg)
 
 
 ### Past Orders
 
-![Orders page](public/img/arizonuts_orders.jpg)
+![Orders page](src/img/arizonuts_orders.jpg)
 
 
 ### Contact Page
 
-![Contact Page](public/img/arizonuts_contact.jpg)
+![Contact Page](src/img/arizonuts_contact.jpg)
 
 
 ## Current Progress
@@ -173,5 +173,4 @@ I recently added the following stylistic features to the page
 - The order dialog on the Menu page is a functional component that loads data from the websocket (which no longer works)
 - Orders page is empty
 - Contact page is empty
-- React blows
 
