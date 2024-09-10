@@ -8,6 +8,11 @@ main.menu {
     align-items: center;
     justify-content: center;
 }
+#menu-header {
+    font-style: italic;
+    text-align: center;
+    padding: 10px;
+}
 #menu-container {
     padding: 10px;
     align-content: center;

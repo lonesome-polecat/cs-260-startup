@@ -20,7 +20,7 @@ export function Menu({menuData}) {
                <div>
                    <OrderDialog showDialog={showDialog} setDialogDisplay={setDialogDisplay} menuItems={menuData.menu_items}/>
                    <br />
-                   <p style={{textAlign: "center"}}>Our weekly pics!</p>
+                   <p id="menu-header">&nbsp;&nbsp;Our Weekly Menu&nbsp;&nbsp;</p>
                    <MenuImages menuData={menuData} />
                    <div id="make-order-button-container">
                        <button id="make-order" onClick={buttonClickHandler}>Order Now</button>
