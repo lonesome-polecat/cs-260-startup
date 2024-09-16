@@ -1,6 +1,6 @@
 # Startup Project - Arizonuts
 Looking for a tasty dessert? Perhaps a thoughtful gift for a friend? Welcome to **Arizonuts**, the latest and tastiest innovation in Provo! 
-These fluffy filled pastries are made to order, not to sit and stale-ify on the counter. Through our online website, you can order one or several of these handcrafted delicacies and have it ready for pickup within minutes! 
+These fluffy filled pastries are made to order, not to sit and stale-ify on the counter. You can order these handcrafted delicacies online through our website and have them ready for pickup within minutes! 
 
 Order a box of fresh Arizonuts today!
 
