@@ -1,10 +1,9 @@
 import { useState, useEffect, useMemo } from 'react'
 
-export function useMountedFetch(url, options, setLoading) {
-    const [data, setData] = useState(null);
+export function useMountedFetch(url, options, data, setData) {
     console.log("now in useData")
     useEffect(() => {
-        if (url) {
+        if (!data) {
             let ignore = false;
             fetch(url, options)
                 .then(response => response.json())
@@ -12,7 +11,6 @@ export function useMountedFetch(url, options, setLoading) {
                     if (!ignore) {
                         console.log(json)
                         setData(json);
-                        setLoading(false)
                     }
                 });
             return () => {
@@ -20,7 +18,6 @@ export function useMountedFetch(url, options, setLoading) {
             };
         }
     }, []);
-    return data;
 }
 
 export function fetchTimes(url, options, setLoading) {
@@ -67,11 +64,11 @@ export function useActionFetch(url, options, setLoading) {
     }, [options]);
     return data;
 }
-export function importImg(path, setLoading) {
+export function importImg(path, img, setImage) {
     const IMG_PATH = './img/'
-    const [data, setData] = useState('');
     console.log("now in importImg")
     console.log(path)
+    console.log(img)
     useMemo(() => {
         if (path) {
             let ignore = false;
@@ -80,15 +77,13 @@ export function importImg(path, setLoading) {
                 .then(img => {
                     if (!ignore) {
                         console.log(img)
-                        setData(img);
-                        setLoading(false)
+                        setImage(img)
                     }
                 }).catch(error => {
                     if (!ignore) {
                         console.log(error)
                         // most likely due to the browser not able to import images
-                        setData('../img/' + path)
-                        setLoading(false)
+                        setImage('../img/' + path)
                     }
                 });
             return () => {
@@ -96,7 +91,6 @@ export function importImg(path, setLoading) {
             };
         }
     }, []);
-    return data;
 }
 
 export function handleSubmit(props) {

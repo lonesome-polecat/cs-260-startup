@@ -112,6 +112,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    animation: fade-in 0.5s;
 }
 .img-row-container {
     display: flex;
@@ -215,5 +216,14 @@ footer {
     }
     to {
         width: 300px;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
     }
 }

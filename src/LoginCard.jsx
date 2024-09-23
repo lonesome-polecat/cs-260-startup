@@ -27,10 +27,7 @@ export function LoginCard(props) {
 
     function handleAuthResponse() {
         if (apiResponse.status === 200) {
-            window.localStorage.setItem('username', apiResponse.first_name)
-            props.changeAuthentication()
-            setLoading(true)
-            navigate('/index')
+            window.location.replace('/')
         } else {
             setLoading(true)
             alert('Invalid credentials')

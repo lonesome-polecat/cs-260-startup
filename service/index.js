@@ -334,7 +334,6 @@ function setAuthCookie(res, token) {
     secure: true,
     httpOnly: true,
     sameSite: 'strict'
-    //expires: 1800
   })
 }
 
