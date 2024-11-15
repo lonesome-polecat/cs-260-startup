@@ -20,7 +20,7 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 const serviceName = process.argv.length > 3 ? process.argv[3] : 'website';
 
 const allowCrossDomain = (req, res, next) => {
-  res.header(`Access-Control-Allow-Origin`, `http://localhost:5173`);
+  res.header(`Access-Control-Allow-Origin`, `*`);
   res.header(`Access-Control-Allow-Methods`, `GET,PUT,POST,DELETE`);
   res.header(`Access-Control-Allow-Headers`, `Content-Type`);
   next();
@@ -225,7 +225,7 @@ app.listen(port, () => {
 /*** WebSocket ***/
 let connections = [];
 
-const wss = new WebSocketServer({ port: 9900 });
+const wss = new WebSocketServer({ port: 9800 });
 // Have this able to connect only after login (auth)
 
 wss.on('connection', (ws) => {
